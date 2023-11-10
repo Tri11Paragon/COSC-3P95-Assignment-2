@@ -41,6 +41,7 @@ public class FileHeader {
                 writer.writeInt(amount);
                 writer.write(bytes, 0, amount);
             }
+            writer.writeInt(0);
         } catch (Exception ignored) {
         }
     }
@@ -48,9 +49,13 @@ public class FileHeader {
     void receive(DataInputStream reader) {
         try {
             String relative = reader.readUTF();
-
-
-            DataOutputStream writer = new DataOutputStream(new BufferedOutputStream(new FileOutputStream()));
+            DataOutputStream writer = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(relative)));
+            int size = 0;
+            while ((size = reader.readInt()) > 0){
+                byte[] data = new byte[size];
+                int amount = reader.read(data, 0, size);
+                writer.write(data, 0, amount);
+            }
         } catch (Exception ignored){
         }
     }
