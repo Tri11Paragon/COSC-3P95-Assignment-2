@@ -1,7 +1,6 @@
 package server;
 
 import shared.ExceptionLogger;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 
