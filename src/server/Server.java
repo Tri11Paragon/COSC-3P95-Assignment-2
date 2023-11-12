@@ -25,7 +25,7 @@ public class Server {
     }
 
     public boolean isRunning(){
-        return isRunning();
+        return running;
     }
 
     public static void main(String[] args) {

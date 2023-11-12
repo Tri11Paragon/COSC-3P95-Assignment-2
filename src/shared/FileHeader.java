@@ -1,5 +1,7 @@
 package shared;
 
+import client.Client;
+
 import java.io.*;
 
 public class FileHeader {
@@ -8,9 +10,9 @@ public class FileHeader {
 
     public enum COMMAND {
         WRITE((byte) 1);
-        private final byte type;
+        public final byte type;
 
-        private COMMAND(byte type) {
+        COMMAND(byte type) {
             this.type = type;
         }
     }
@@ -19,18 +21,22 @@ public class FileHeader {
     private final String full_path;
 
     public FileHeader(String path) {
+        File pf = new File(path);
+        if (!pf.exists())
+            throw new Client.ClientInvalidUsageException("Unable to send a file which doesn't exist!");
+        if (pf.isDirectory())
+            throw new Client.ClientInvalidUsageException("Path is a directory unable to send!");
         String workingDirectory = System.getProperty("user.dir");
         this.full_path = path;
         this.relative_path = path.replace(workingDirectory, "");
         System.out.println(relative_path);
-        this.size = 0;
     }
 
-    void write(DataOutputStream writer) {
+    public void write(DataOutputStream writer) {
         try {
             DataInputStream reader = new DataInputStream(new BufferedInputStream(new FileInputStream(full_path)));
 
-            writer.write(COMMAND.WRITE.type);
+            writer.writeByte(COMMAND.WRITE.type);
             writer.writeUTF(relative_path);
 
             while (reader.available() > 0) {
@@ -38,18 +44,25 @@ public class FileHeader {
                 byte[] bytes = new byte[read];
 
                 int amount = reader.read(bytes);
+                if (amount <= 0)
+                    break;
+                System.out.println("Writing " + amount + "  bytes");
                 writer.writeInt(amount);
                 writer.write(bytes, 0, amount);
             }
+            reader.close();
             writer.writeInt(0);
+            writer.flush();
         } catch (Exception ignored) {
         }
     }
 
-    void receive(DataInputStream reader) {
+    public static void receive(DataInputStream reader) {
         try {
-            String relative = reader.readUTF();
-            DataOutputStream writer = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(relative)));
+            String path = System.getProperty("user.dir") + "/out-" + reader.readUTF();
+            System.out.println("Writing to file: " + path);
+
+            DataOutputStream writer = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(path)));
             int size = 0;
             while ((size = reader.readInt()) > 0){
                 byte[] data = new byte[size];

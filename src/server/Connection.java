@@ -1,24 +1,23 @@
 package server;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import shared.FileHeader;
+
+import java.io.*;
 import java.net.Socket;
 
 public class Connection extends Thread {
 
     private final Socket clientSocket;
     private final Server server;
-    private BufferedWriter out;
-    private BufferedReader in;
+    private DataOutputStream out;
+    private DataInputStream in;
 
     public Connection(Server server, Socket clientSocket) {
         this.server = server;
         this.clientSocket = clientSocket;
         try {
-            out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            out = new DataOutputStream(new BufferedOutputStream(clientSocket.getOutputStream()));
+            in = new DataInputStream(new BufferedInputStream(clientSocket.getInputStream()));
         } catch (Exception ignored) {
         }
     }
@@ -26,7 +25,18 @@ public class Connection extends Thread {
     @Override
     public void run() {
         while (server.isRunning()) {
+            if (!clientSocket.isConnected())
+                break;
+            try {
+                if (in.available() > 0) {
+                    byte command = in.readByte();
 
+                    if (command == FileHeader.COMMAND.WRITE.type)
+                        FileHeader.receive(in);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         try {
             out.close();
