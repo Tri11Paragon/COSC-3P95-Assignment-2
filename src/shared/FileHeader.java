@@ -51,38 +51,36 @@ public class FileHeader {
 
     public void write(DataOutputStream writer) {
         try {
-            DataInputStream reader = new DataInputStream(new BufferedInputStream(Files.newInputStream(Paths.get(full_path))));
+            DataInputStream fileReader = new DataInputStream(new BufferedInputStream(Files.newInputStream(Paths.get(full_path))));
 
             writer.writeByte(COMMAND.WRITE.type);
             writer.writeUTF(relative_path);
 
             StreamingXXHash64 streamHash = XX_HASH_FACTORY.newStreamingHash64(SEED);
-            while (reader.available() > 0) {
+            while (fileReader.available() > 0) {
                 // read / write files in chunks
-                int read = Integer.min(reader.available(), READER_SIZE);
-                byte[] bytes = new byte[read];
+                byte[] readBytes = new byte[Integer.min(fileReader.available(), READER_SIZE)];
 
-                int amount = reader.read(bytes);
-                if (amount <= 0)
+                int totalRead = fileReader.read(readBytes);
+                if (totalRead <= 0)
                     break;
 
                 // create a checksum for this chunk + update the overall checksum
-                streamHash.update(bytes, 0, amount);
-                long hash = HASH_64.hash(bytes, 0, amount, SEED);
+                streamHash.update(readBytes, 0, totalRead);
+                long hash = HASH_64.hash(readBytes, 0, totalRead, SEED);
 
                 // apply compression
-                int maxCompressedLength = COMPRESSOR.maxCompressedLength(bytes.length);
-                byte[] compressed = new byte[maxCompressedLength];
-                int compressedLength = COMPRESSOR.compress(bytes, 0, bytes.length, compressed, 0, maxCompressedLength);
+                int maxCompressedLength = COMPRESSOR.maxCompressedLength(readBytes.length);
+                byte[] compressedBytes = new byte[maxCompressedLength];
+                int compressedLength = COMPRESSOR.compress(readBytes, 0, readBytes.length, compressedBytes, 0, maxCompressedLength);
 
-                System.out.println("Writing " + compressedLength + "  bytes");
-                writer.writeInt(amount);
+                writer.writeInt(totalRead);
                 writer.writeInt(compressedLength);
                 writer.writeLong(hash);
-                writer.write(compressed, 0, compressedLength);
+                writer.write(compressedBytes, 0, compressedLength);
                 writer.flush();
             }
-            reader.close();
+            fileReader.close();
             writer.writeInt(0);
             writer.writeLong(streamHash.getValue());
             writer.flush();
@@ -93,29 +91,29 @@ public class FileHeader {
 
     public static void receive(DataInputStream reader) {
         try {
-            String userFile = reader.readUTF();
-            String[] pathParts = userFile.split("/");
-            String userDirectory = userFile.replace(pathParts[pathParts.length-1], "");
-
-            File ld = new File(System.getProperty("user.dir") + "/write/" + userDirectory);
-            if (!ld.exists())
-                if(!ld.mkdirs())
-                    System.out.println("Failed to create directory");
-
-            String path = System.getProperty("user.dir") + "/write/" + userFile;
+            String path = createPath(reader.readUTF());
             System.out.println("Writing to file: " + path);
 
             DataOutputStream writer = new DataOutputStream(new BufferedOutputStream(Files.newOutputStream(Paths.get(path))));
-            int uncompressed_size = 0;
+
             StreamingXXHash64 computedStreamHash = XX_HASH_FACTORY.newStreamingHash64(SEED);
-            while ((uncompressed_size = reader.readInt()) > 0) {
+            while (true) {
+                int uncompressed_size = reader.readInt();
+
+                if (uncompressed_size <= 0)
+                    break;
+
                 int compressed_size = reader.readInt();
                 long hash = reader.readLong();
                 byte[] data = new byte[compressed_size];
                 int amount = reader.read(data, 0, compressed_size);
 
+                assert(amount == compressed_size);
+
                 byte[] restored = new byte[uncompressed_size];
                 int len = DECOMPRESSOR.decompress(data, 0, restored, 0, uncompressed_size);
+
+                assert(len == uncompressed_size);
 
                 long computedHash = HASH_64.hash(restored, 0, uncompressed_size, SEED);
                 computedStreamHash.update(restored, 0, uncompressed_size);
@@ -130,9 +128,20 @@ public class FileHeader {
                 throw new RuntimeException("HELP 22");
             writer.flush();
             writer.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             ExceptionLogger.log(e);
         }
+    }
+
+    private static String createPath(String userFile) {
+        String[] pathParts = userFile.split("/");
+        String userDirectory = userFile.replace(pathParts[pathParts.length - 1], "");
+
+        File ld = new File(System.getProperty("user.dir") + "/write/" + userDirectory);
+        if (!ld.exists() && !ld.mkdirs())
+            System.out.println("Failed to create directory");
+
+        return System.getProperty("user.dir") + "/write/" + userFile;
     }
 
 }
