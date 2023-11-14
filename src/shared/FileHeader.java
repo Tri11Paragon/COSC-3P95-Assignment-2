@@ -1,6 +1,10 @@
 package shared;
 
 import client.Client;
+import net.jpountz.lz4.LZ4Compressor;
+import net.jpountz.lz4.LZ4Factory;
+import net.jpountz.lz4.LZ4FastDecompressor;
+import net.jpountz.lz4.LZ4SafeDecompressor;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -8,7 +12,11 @@ import java.nio.file.Paths;
 
 public class FileHeader {
 
-    private static final int READER_SIZE = 8192;
+    public static final int READER_SIZE = 8192;
+
+    private static final LZ4Factory factory = LZ4Factory.fastestInstance();
+    private static final LZ4Compressor compressor = factory.highCompressor();
+    private static final LZ4FastDecompressor decompressor = factory.fastDecompressor();
 
     public enum COMMAND {
         WRITE((byte) 1);
@@ -42,15 +50,24 @@ public class FileHeader {
             writer.writeUTF(relative_path);
 
             while (reader.available() > 0) {
+                // read / write files in chunks
                 int read = Integer.min(reader.available(), READER_SIZE);
                 byte[] bytes = new byte[read];
 
                 int amount = reader.read(bytes);
                 if (amount <= 0)
                     break;
-                System.out.println("Writing " + amount + "  bytes");
+
+                // apply compression
+                int maxCompressedLength = compressor.maxCompressedLength(bytes.length);
+                byte[] compressed = new byte[maxCompressedLength];
+                int compressedLength = compressor.compress(bytes, 0, bytes.length, compressed, 0, maxCompressedLength);
+
+                System.out.println("Writing " + compressedLength + "  bytes");
                 writer.writeInt(amount);
-                writer.write(bytes, 0, amount);
+                writer.writeInt(compressedLength);
+                writer.write(compressed, 0, compressedLength);
+                writer.flush();
             }
             reader.close();
             writer.writeInt(0);
@@ -75,13 +92,20 @@ public class FileHeader {
             System.out.println("Writing to file: " + path);
 
             DataOutputStream writer = new DataOutputStream(new BufferedOutputStream(Files.newOutputStream(Paths.get(path))));
-            int size = 0;
-            while ((size = reader.readInt()) > 0) {
-                byte[] data = new byte[size];
-                int amount = reader.read(data, 0, size);
-                writer.write(data, 0, amount);
+            int uncompressed_size = 0;
+            while ((uncompressed_size = reader.readInt()) > 0) {
+                int compressed_size = reader.readInt();
+                byte[] data = new byte[compressed_size];
+                int amount = reader.read(data, 0, compressed_size);
+
+                byte[] restored = new byte[uncompressed_size];
+
+                int len = decompressor.decompress(data, 0, restored, 0, uncompressed_size);
+
+                writer.write(restored, 0, uncompressed_size);
             }
             writer.flush();
+            writer.close();
         } catch (Exception e){
             ExceptionLogger.log(e);
         }

@@ -1,5 +1,10 @@
 package server;
 
+import net.jpountz.lz4.LZ4BlockInputStream;
+import net.jpountz.lz4.LZ4BlockOutputStream;
+import net.jpountz.lz4.LZ4FrameInputStream;
+import net.jpountz.lz4.LZ4FrameOutputStream;
+import shared.ExceptionLogger;
 import shared.FileHeader;
 
 import java.io.*;
@@ -18,7 +23,8 @@ public class Connection extends Thread {
         try {
             out = new DataOutputStream(new BufferedOutputStream(clientSocket.getOutputStream()));
             in = new DataInputStream(new BufferedInputStream(clientSocket.getInputStream()));
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            ExceptionLogger.log(e);
         }
     }
 

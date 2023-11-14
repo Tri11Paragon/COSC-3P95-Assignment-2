@@ -1,5 +1,9 @@
 package client;
 
+import net.jpountz.lz4.LZ4BlockInputStream;
+import net.jpountz.lz4.LZ4BlockOutputStream;
+import net.jpountz.lz4.LZ4FrameInputStream;
+import net.jpountz.lz4.LZ4FrameOutputStream;
 import server.Server;
 import shared.ExceptionLogger;
 import shared.FileHeader;

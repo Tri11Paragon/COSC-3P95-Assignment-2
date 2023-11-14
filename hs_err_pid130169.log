@@ -1,0 +1,1542 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f946340f866, pid=130169, tid=0x00007f94637f96c0
+#
+# JRE version: OpenJDK Runtime Environment (8.0_362-b08) (build 1.8.0_362-b08)
+# Java VM: OpenJDK 64-Bit Server VM (25.362-b08 mixed mode linux-amd64 compressed oops)
+# Problematic frame:
+# C  [liblz4-java-1718531564808680839.so+0xf866]  LZ4_decompress_fast+0xc6
+#
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   https://github.com/corretto/corretto-8/issues/
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f9494514000):  JavaThread "Thread-0" [_thread_in_native, id=130344, stack(0x00007f94636fa000,0x00007f94637fa000)]
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 1 (SEGV_MAPERR), si_addr: 0x00000003d77ff319
+
+Registers:
+RAX=0x00000003d7800019, RBX=0x0000000000000d00, RCX=0x000000042a7fffe0, RDX=0x0000000675029173
+RSP=0x00007f94637f8720, RBP=0x0000524448490d00, RSI=0x0000000000000004, RDI=0x00000003d780001d
+R8 =0x000000042a800020, R9 =0x00000003d77ff319, R10=0x0000000000000d00, R11=0x000000042a800018
+R12=0x0000000675029168, R13=0x000000042a800006, R14=0x00007f94637f8720, R15=0x00000003d7800010
+RIP=0x00007f946340f866, EFLAGS=0x0000000000010216, CSGSFS=0x002b000000000033, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x00007f94637f8720)
+0x00007f94637f8720:   00007f9494514000 0000000000000000
+0x00007f94637f8730:   00007f94637f8790 00007f9494514260
+0x00007f94637f8740:   0000000000000000 00007f94637f8878
+0x00007f94637f8750:   00007f94637f8860 0000000675029168
+0x00007f94637f8760:   00000003d7800010 00007f9463402b3a
+0x00007f94637f8770:   00007f94637f8810 00007f94808aeb38
+0x00007f94637f8780:   00007f94637f8828 0000000000000000
+0x00007f94637f8790:   00007f94808aeb38 00007f94637f8878
+0x00007f94637f87a0:   00007f9494514000 00007f9485017de7
+0x00007f94637f87b0:   0000000000000000 00007f9400000000
+0x00007f94637f87c0:   00007f9453000010 00007f94637f8810
+0x00007f94637f87d0:   00007f94808ae248 0000000000000000
+0x00007f94637f87e0:   00007f94808ad620 00007f94637f87e8
+0x00007f94637f87f0:   0000000000000000 00007f94637f8878
+0x00007f94637f8800:   00007f94808aed70 0000000000000000
+0x00007f94637f8810:   00007f94808aeb38 0000000000000000
+0x00007f94637f8820:   00007f94637f8848 00007f94637f88c0
+0x00007f94637f8830:   00007f9485007a40 0000000674ba6da0
+0x00007f94637f8840:   00007f9485011a56 0000000053000010
+0x00007f94637f8850:   0000000000000000 0000000000000000
+0x00007f94637f8860:   00000003d7800000 0000000000000000
+0x00007f94637f8870:   0000000000000000 0000000675029158
+0x00007f94637f8880:   00007f94637f8880 00007f94808a94e6
+0x00007f94637f8890:   00007f94637f8900 00007f94808aa470
+0x00007f94637f88a0:   0000000000000000 00007f94808a9578
+0x00007f94637f88b0:   00007f94637f8848 00007f94637f88d8
+0x00007f94637f88c0:   00007f94637f8948 00007f9485007a40
+0x00007f94637f88d0:   0000000000000000 0000000053000010
+0x00007f94637f88e0:   0000000000000000 00000003d7800000
+0x00007f94637f88f0:   0000000000000000 0000000675029158
+0x00007f94637f8900:   0000000674b7a268 00007f94637f8908
+0x00007f94637f8910:   00007f94808a10f9 00007f94637f89b8 
+
+Instructions: (pc=0x00007f946340f866)
+0x00007f946340f846:   00 40 0f b6 f6 48 83 c6 04 48 8d 3c 30 48 39 cf
+0x00007f946340f856:   0f 83 81 04 00 00 49 83 fa 07 0f 86 da 04 00 00
+0x00007f946340f866:   49 8b 31 48 89 30 49 8b 71 08 48 89 70 08 41 0f
+0x00007f946340f876:   b7 71 10 66 89 70 10 e9 6e ff ff ff 49 8d 70 fb 
+
+Register to memory mapping:
+
+RAX=0x00000003d7800019 is pointing into object: 0x00000003d7800000
+[B 
+ - klass: {type array byte}
+ - length: 1392508944
+RBX=0x0000000000000d00 is an unknown value
+RCX=0x000000042a7fffe0 is pointing into object: 0x00000003d7800000
+[B 
+ - klass: {type array byte}
+ - length: 1392508944
+RDX=0x0000000675029173 is an unknown value
+RSP=0x00007f94637f8720 is pointing into the stack for thread: 0x00007f9494514000
+RBP=0x0000524448490d00 is an unknown value
+RSI=0x0000000000000004 is an unknown value
+RDI=0x00000003d780001d is pointing into object: 0x00000003d7800000
+[B 
+ - klass: {type array byte}
+ - length: 1392508944
+R8 =
+[error occurred during error reporting (printing register info), id 0xb]
+
+Stack: [0x00007f94636fa000,0x00007f94637fa000],  sp=0x00007f94637f8720,  free space=1017k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [liblz4-java-1718531564808680839.so+0xf866]  LZ4_decompress_fast+0xc6
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  net.jpountz.lz4.LZ4JNI.LZ4_decompress_fast([BLjava/nio/ByteBuffer;I[BLjava/nio/ByteBuffer;II)I+0
+j  net.jpountz.lz4.LZ4JNIFastDecompressor.decompress([BI[BII)I+22
+j  shared.FileHeader.receive(Ljava/io/DataInputStream;)V+225
+j  server.Connection.run()V+55
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+=>0x00007f9494514000 JavaThread "Thread-0" [_thread_in_native, id=130344, stack(0x00007f94636fa000,0x00007f94637fa000)]
+  0x00007f93bc001000 JavaThread "Attach Listener" daemon [_thread_blocked, id=130261, stack(0x00007f94637fa000,0x00007f94638fa000)]
+  0x00007f949450e000 JavaThread "Service Thread" daemon [_thread_blocked, id=130232, stack(0x00007f94639fb000,0x00007f9463afb000)]
+  0x00007f949450b000 JavaThread "C1 CompilerThread14" daemon [_thread_blocked, id=130231, stack(0x00007f9463afc000,0x00007f9463bfc000)]
+  0x00007f9494509000 JavaThread "C1 CompilerThread13" daemon [_thread_blocked, id=130230, stack(0x00007f9463bfd000,0x00007f9463cfd000)]
+  0x00007f9494507000 JavaThread "C1 CompilerThread12" daemon [_thread_blocked, id=130229, stack(0x00007f9463cfe000,0x00007f9463dfe000)]
+  0x00007f9494505000 JavaThread "C1 CompilerThread11" daemon [_thread_blocked, id=130228, stack(0x00007f9463dff000,0x00007f9463eff000)]
+  0x00007f9494503000 JavaThread "C1 CompilerThread10" daemon [_thread_blocked, id=130227, stack(0x00007f9463f00000,0x00007f9464000000)]
+  0x00007f9494500800 JavaThread "C2 CompilerThread9" daemon [_thread_blocked, id=130226, stack(0x00007f94680f8000,0x00007f94681f8000)]
+  0x00007f94944fe800 JavaThread "C2 CompilerThread8" daemon [_thread_blocked, id=130225, stack(0x00007f94681f9000,0x00007f94682f9000)]
+  0x00007f94944fc800 JavaThread "C2 CompilerThread7" daemon [_thread_blocked, id=130224, stack(0x00007f94682fa000,0x00007f94683fa000)]
+  0x00007f94944fa800 JavaThread "C2 CompilerThread6" daemon [_thread_blocked, id=130223, stack(0x00007f94683fb000,0x00007f94684fb000)]
+  0x00007f94944f8800 JavaThread "C2 CompilerThread5" daemon [_thread_blocked, id=130222, stack(0x00007f94684fc000,0x00007f94685fc000)]
+  0x00007f94944f6800 JavaThread "C2 CompilerThread4" daemon [_thread_blocked, id=130221, stack(0x00007f94685fd000,0x00007f94686fd000)]
+  0x00007f94944ec000 JavaThread "C2 CompilerThread3" daemon [_thread_blocked, id=130220, stack(0x00007f94686fe000,0x00007f94687fe000)]
+  0x00007f94944ea000 JavaThread "C2 CompilerThread2" daemon [_thread_blocked, id=130219, stack(0x00007f94687ff000,0x00007f94688ff000)]
+  0x00007f94944e8000 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=130218, stack(0x00007f9468900000,0x00007f9468a00000)]
+  0x00007f94944e6800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=130217, stack(0x00007f9468d00000,0x00007f9468e00000)]
+  0x00007f94944ad800 JavaThread "Monitor Ctrl-Break" daemon [_thread_in_native, id=130216, stack(0x00007f9469100000,0x00007f9469200000)]
+  0x00007f949440c800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=130213, stack(0x00007f94695d9000,0x00007f94696d9000)]
+  0x00007f94943d9800 JavaThread "Finalizer" daemon [_thread_blocked, id=130203, stack(0x00007f94696d9000,0x00007f94697d9000)]
+  0x00007f94943d5000 JavaThread "Reference Handler" daemon [_thread_blocked, id=130201, stack(0x00007f94697d9000,0x00007f94698d9000)]
+  0x00007f949400b800 JavaThread "main" [_thread_in_native, id=130172, stack(0x00007f9499900000,0x00007f9499a00000)]
+
+Other Threads:
+  0x00007f94943cb000 VMThread [stack: 0x00007f94698da000,0x00007f94699da000] [id=130200]
+  0x00007f9494510800 WatcherThread [stack: 0x00007f94638fb000,0x00007f94639fb000] [id=130233]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+heap address: 0x00000003d7800000, size: 16008 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 3
+Compressed class space size: 1073741824 Address: 0x00000007c0000000
+
+Heap:
+ PSYoungGen      total 299520K, used 220367K [0x0000000672800000, 0x0000000687600000, 0x00000007c0000000)
+  eden space 257024K, 85% used [0x0000000672800000,0x000000067ff33ef8,0x0000000682300000)
+  from space 42496K, 0% used [0x0000000684c80000,0x0000000684c80000,0x0000000687600000)
+  to   space 42496K, 0% used [0x0000000682300000,0x0000000682300000,0x0000000684c80000)
+ ParOldGen       total 2044416K, used 1359872K [0x00000003d7800000, 0x0000000454480000, 0x0000000672800000)
+  object space 2044416K, 66% used [0x00000003d7800000,0x000000042a800020,0x0000000454480000)
+ Metaspace       used 4778K, capacity 4854K, committed 4992K, reserved 1056768K
+  class space    used 540K, capacity 593K, committed 640K, reserved 1048576K
+
+Card table byte_map: [0x00007f94830bb000,0x00007f9485000000] byte_map_base: 0x00007f94811ff000
+
+Marking Bits: (ParMarkBitMap*) 0x00007f949aa37720
+ Begin Bits: [0x00007f93c4bc0000, 0x00007f93d45e0000)
+ End Bits:   [0x00007f93d45e0000, 0x00007f93e4000000)
+
+Polling page: 0x00007f949b0d6000
+
+CodeCache: size=245760Kb used=3763Kb max_used=3763Kb free=241996Kb
+ bounds [0x00007f9485000000, 0x00007f94853b0000, 0x00007f9494000000]
+ total_blobs=482 nmethods=189 adapters=204
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 4.241 Thread 0x00007f9494503000  187       1       java.nio.charset.Charset::name (5 bytes)
+Event: 4.241 Thread 0x00007f9494503000 nmethod 187 0x00007f94853a3510 code [0x00007f94853a3660, 0x00007f94853a3770]
+Event: 4.241 Thread 0x00007f9494509000 nmethod 185 0x00007f94853a2bd0 code [0x00007f94853a2d80, 0x00007f94853a32a8]
+Event: 4.241 Thread 0x00007f949450b000 nmethod 186 0x00007f94853a5790 code [0x00007f94853a5920, 0x00007f94853a5de8]
+Event: 4.242 Thread 0x00007f9494505000 nmethod 183 0x00007f94853a5f90 code [0x00007f94853a62e0, 0x00007f94853a7d18]
+Event: 4.242 Thread 0x00007f9494507000 nmethod 184 0x00007f94853a8bd0 code [0x00007f94853a8f40, 0x00007f94853aac38]
+Event: 4.242 Thread 0x00007f9494503000  188       3       java.lang.ClassLoader::checkName (43 bytes)
+Event: 4.242 Thread 0x00007f9494509000  189       3       sun.misc.VM::allowArraySyntax (4 bytes)
+Event: 4.242 Thread 0x00007f9494509000 nmethod 189 0x00007f94853a28d0 code [0x00007f94853a2a20, 0x00007f94853a2b70]
+Event: 4.242 Thread 0x00007f9494503000 nmethod 188 0x00007f94853abdd0 code [0x00007f94853abf80, 0x00007f94853ac6f8]
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (2 events):
+Event: 4.221 Thread 0x00007f9494514000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f9485374a40 method=java.net.AbstractPlainSocketImpl.available()I @ 41
+Event: 4.255 Thread 0x00007f9494514000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f9485370a58 method=java.net.AbstractPlainSocketImpl.available()I @ 41
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (6 events):
+Event: 0.012 Thread 0x00007f949400b800 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.defineClass(Ljava/lang/String;[BII)Ljava/lang/Class; name or signature does not match> (0x00000006728082a0) thrown at [/home/jenkins/node/workspace/Corretto8/generic_linux/x64/build/Corret
+Event: 0.012 Thread 0x00007f949400b800 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.prefetchRead(Ljava/lang/Object;J)V name or signature does not match> (0x0000000672808588) thrown at [/home/jenkins/node/workspace/Corretto8/generic_linux/x64/build/Corretto8Src/installers/
+Event: 1.127 Thread 0x00007f93bc001000 Exception <a 'java/security/PrivilegedActionException'> (0x0000000674197f88) thrown at [/home/jenkins/node/workspace/Corretto8/generic_linux/x64/build/Corretto8Src/installers/linux/universal/tar/corretto-build/buildRoot/hotspot/src/share/vm/prims/jvm.cpp,
+Event: 1.127 Thread 0x00007f93bc001000 Exception <a 'java/security/PrivilegedActionException'> (0x0000000674198380) thrown at [/home/jenkins/node/workspace/Corretto8/generic_linux/x64/build/Corretto8Src/installers/linux/universal/tar/corretto-build/buildRoot/hotspot/src/share/vm/prims/jvm.cpp,
+Event: 1.127 Thread 0x00007f93bc001000 Exception <a 'java/security/PrivilegedActionException'> (0x000000067419adb0) thrown at [/home/jenkins/node/workspace/Corretto8/generic_linux/x64/build/Corretto8Src/installers/linux/universal/tar/corretto-build/buildRoot/hotspot/src/share/vm/prims/jvm.cpp,
+Event: 1.127 Thread 0x00007f93bc001000 Exception <a 'java/security/PrivilegedActionException'> (0x000000067419b1a8) thrown at [/home/jenkins/node/workspace/Corretto8/generic_linux/x64/build/Corretto8Src/installers/linux/universal/tar/corretto-build/buildRoot/hotspot/src/share/vm/prims/jvm.cpp,
+
+Events (10 events):
+Event: 4.243 loading class sun/nio/ch/NativeDispatcher done
+Event: 4.243 loading class sun/nio/ch/FileDispatcher done
+Event: 4.243 loading class sun/nio/ch/FileDispatcherImpl done
+Event: 4.243 loading class java/nio/channels/Channels
+Event: 4.243 loading class java/nio/channels/Channels done
+Event: 4.243 loading class java/nio/channels/Channels$1
+Event: 4.243 loading class java/nio/channels/Channels$1 done
+Event: 4.255 Thread 0x00007f9494514000 Uncommon trap: trap_request=0xffffff65 fr.pc=0x00007f9485370a58
+Event: 4.255 Thread 0x00007f9494514000 DEOPT PACKING pc=0x00007f9485370a58 sp=0x00007f94637f8770
+Event: 4.255 Thread 0x00007f9494514000 DEOPT UNPACKING pc=0x00007f948504547a sp=0x00007f94637f86d0 mode 2
+
+
+Dynamic libraries:
+3d7800000-454480000 rw-p 00000000 00:00 0 
+454480000-672800000 ---p 00000000 00:00 0 
+672800000-687600000 rw-p 00000000 00:00 0 
+687600000-7c0000000 ---p 00000000 00:00 0 
+7c0000000-7c00a0000 rw-p 00000000 00:00 0 
+7c00a0000-800000000 ---p 00000000 00:00 0 
+55a6e6000000-55a6e6001000 r-xp 00000000 103:06 37622793                  /home/brett/.jdks/corretto-1.8.0_362/bin/java
+55a6e6200000-55a6e6201000 r--p 00000000 103:06 37622793                  /home/brett/.jdks/corretto-1.8.0_362/bin/java
+55a6e6201000-55a6e6202000 rw-p 00001000 103:06 37622793                  /home/brett/.jdks/corretto-1.8.0_362/bin/java
+55a6e74e6000-55a6e7507000 rw-p 00000000 00:00 0                          [heap]
+7f9368000000-7f9368021000 rw-p 00000000 00:00 0 
+7f9368021000-7f936c000000 ---p 00000000 00:00 0 
+7f936c000000-7f936c2b4000 rw-p 00000000 00:00 0 
+7f936c2b4000-7f9370000000 ---p 00000000 00:00 0 
+7f9370000000-7f9370021000 rw-p 00000000 00:00 0 
+7f9370021000-7f9374000000 ---p 00000000 00:00 0 
+7f9374000000-7f9374021000 rw-p 00000000 00:00 0 
+7f9374021000-7f9378000000 ---p 00000000 00:00 0 
+7f9378000000-7f9378021000 rw-p 00000000 00:00 0 
+7f9378021000-7f937c000000 ---p 00000000 00:00 0 
+7f937c000000-7f937c021000 rw-p 00000000 00:00 0 
+7f937c021000-7f9380000000 ---p 00000000 00:00 0 
+7f9380000000-7f9380021000 rw-p 00000000 00:00 0 
+7f9380021000-7f9384000000 ---p 00000000 00:00 0 
+7f9384000000-7f9384021000 rw-p 00000000 00:00 0 
+7f9384021000-7f9388000000 ---p 00000000 00:00 0 
+7f9388000000-7f93880c0000 rw-p 00000000 00:00 0 
+7f93880c0000-7f938c000000 ---p 00000000 00:00 0 
+7f938c000000-7f938c022000 rw-p 00000000 00:00 0 
+7f938c022000-7f9390000000 ---p 00000000 00:00 0 
+7f9390000000-7f9390021000 rw-p 00000000 00:00 0 
+7f9390021000-7f9394000000 ---p 00000000 00:00 0 
+7f9394000000-7f93940a2000 rw-p 00000000 00:00 0 
+7f93940a2000-7f9398000000 ---p 00000000 00:00 0 
+7f9398000000-7f9398021000 rw-p 00000000 00:00 0 
+7f9398021000-7f939c000000 ---p 00000000 00:00 0 
+7f939c000000-7f939c021000 rw-p 00000000 00:00 0 
+7f939c021000-7f93a0000000 ---p 00000000 00:00 0 
+7f93a0000000-7f93a0021000 rw-p 00000000 00:00 0 
+7f93a0021000-7f93a4000000 ---p 00000000 00:00 0 
+7f93a4000000-7f93a4087000 rw-p 00000000 00:00 0 
+7f93a4087000-7f93a8000000 ---p 00000000 00:00 0 
+7f93a8000000-7f93a80e2000 rw-p 00000000 00:00 0 
+7f93a80e2000-7f93ac000000 ---p 00000000 00:00 0 
+7f93ac000000-7f93ac021000 rw-p 00000000 00:00 0 
+7f93ac021000-7f93b0000000 ---p 00000000 00:00 0 
+7f93b0000000-7f93b0029000 rw-p 00000000 00:00 0 
+7f93b0029000-7f93b4000000 ---p 00000000 00:00 0 
+7f93b4000000-7f93b4098000 rw-p 00000000 00:00 0 
+7f93b4098000-7f93b8000000 ---p 00000000 00:00 0 
+7f93b8000000-7f93b8021000 rw-p 00000000 00:00 0 
+7f93b8021000-7f93bc000000 ---p 00000000 00:00 0 
+7f93bc000000-7f93bc021000 rw-p 00000000 00:00 0 
+7f93bc021000-7f93c0000000 ---p 00000000 00:00 0 
+7f93c0000000-7f93c0021000 rw-p 00000000 00:00 0 
+7f93c0021000-7f93c4000000 ---p 00000000 00:00 0 
+7f93c4bc0000-7f93e4021000 rw-p 00000000 00:00 0 
+7f93e4021000-7f93e8000000 ---p 00000000 00:00 0 
+7f93e8000000-7f93e8021000 rw-p 00000000 00:00 0 
+7f93e8021000-7f93ec000000 ---p 00000000 00:00 0 
+7f93ec000000-7f93ec021000 rw-p 00000000 00:00 0 
+7f93ec021000-7f93f0000000 ---p 00000000 00:00 0 
+7f93f4000000-7f93f4021000 rw-p 00000000 00:00 0 
+7f93f4021000-7f93f8000000 ---p 00000000 00:00 0 
+7f93fc000000-7f93fc021000 rw-p 00000000 00:00 0 
+7f93fc021000-7f9400000000 ---p 00000000 00:00 0 
+7f9404000000-7f9404021000 rw-p 00000000 00:00 0 
+7f9404021000-7f9408000000 ---p 00000000 00:00 0 
+7f940c000000-7f940c021000 rw-p 00000000 00:00 0 
+7f940c021000-7f9410000000 ---p 00000000 00:00 0 
+7f9414000000-7f9414021000 rw-p 00000000 00:00 0 
+7f9414021000-7f9418000000 ---p 00000000 00:00 0 
+7f941c000000-7f941c021000 rw-p 00000000 00:00 0 
+7f941c021000-7f9420000000 ---p 00000000 00:00 0 
+7f9424000000-7f9424021000 rw-p 00000000 00:00 0 
+7f9424021000-7f9428000000 ---p 00000000 00:00 0 
+7f942c000000-7f942c021000 rw-p 00000000 00:00 0 
+7f942c021000-7f9430000000 ---p 00000000 00:00 0 
+7f9430000000-7f9430021000 rw-p 00000000 00:00 0 
+7f9430021000-7f9434000000 ---p 00000000 00:00 0 
+7f9434000000-7f9434021000 rw-p 00000000 00:00 0 
+7f9434021000-7f9438000000 ---p 00000000 00:00 0 
+7f943c000000-7f943c021000 rw-p 00000000 00:00 0 
+7f943c021000-7f9440000000 ---p 00000000 00:00 0 
+7f9440000000-7f9440021000 rw-p 00000000 00:00 0 
+7f9440021000-7f9444000000 ---p 00000000 00:00 0 
+7f9444000000-7f9444021000 rw-p 00000000 00:00 0 
+7f9444021000-7f9448000000 ---p 00000000 00:00 0 
+7f944c000000-7f944c021000 rw-p 00000000 00:00 0 
+7f944c021000-7f9450000000 ---p 00000000 00:00 0 
+7f9454000000-7f9454021000 rw-p 00000000 00:00 0 
+7f9454021000-7f9458000000 ---p 00000000 00:00 0 
+7f945c000000-7f945c021000 rw-p 00000000 00:00 0 
+7f945c021000-7f9460000000 ---p 00000000 00:00 0 
+7f9463400000-7f9463424000 r-xp 00000000 103:05 6698436                   /tmp/liblz4-java-1718531564808680839.so
+7f9463424000-7f9463623000 ---p 00024000 103:05 6698436                   /tmp/liblz4-java-1718531564808680839.so
+7f9463623000-7f9463624000 rw-p 00023000 103:05 6698436                   /tmp/liblz4-java-1718531564808680839.so
+7f94636fa000-7f94636fd000 ---p 00000000 00:00 0 
+7f94636fd000-7f94637fa000 rw-p 00000000 00:00 0 
+7f94637fa000-7f94637fd000 ---p 00000000 00:00 0 
+7f94637fd000-7f94638fa000 rw-p 00000000 00:00 0 
+7f94638fa000-7f94638fb000 ---p 00000000 00:00 0 
+7f94638fb000-7f94639fb000 rw-p 00000000 00:00 0 
+7f94639fb000-7f94639fe000 ---p 00000000 00:00 0 
+7f94639fe000-7f9463afb000 rw-p 00000000 00:00 0 
+7f9463afb000-7f9463afc000 ---p 00000000 00:00 0 
+7f9463afc000-7f9463aff000 ---p 00000000 00:00 0 
+7f9463aff000-7f9463bfc000 rw-p 00000000 00:00 0 
+7f9463bfc000-7f9463bfd000 ---p 00000000 00:00 0 
+7f9463bfd000-7f9463c00000 ---p 00000000 00:00 0 
+7f9463c00000-7f9463cfd000 rw-p 00000000 00:00 0 
+7f9463cfd000-7f9463cfe000 ---p 00000000 00:00 0 
+7f9463cfe000-7f9463d01000 ---p 00000000 00:00 0 
+7f9463d01000-7f9463dfe000 rw-p 00000000 00:00 0 
+7f9463dfe000-7f9463dff000 ---p 00000000 00:00 0 
+7f9463dff000-7f9463e02000 ---p 00000000 00:00 0 
+7f9463e02000-7f9463eff000 rw-p 00000000 00:00 0 
+7f9463eff000-7f9463f00000 ---p 00000000 00:00 0 
+7f9463f00000-7f9463f03000 ---p 00000000 00:00 0 
+7f9463f03000-7f9464021000 rw-p 00000000 00:00 0 
+7f9464021000-7f9468000000 ---p 00000000 00:00 0 
+7f94680f7000-7f94680f8000 ---p 00000000 00:00 0 
+7f94680f8000-7f94680fb000 ---p 00000000 00:00 0 
+7f94680fb000-7f94681f8000 rw-p 00000000 00:00 0 
+7f94681f8000-7f94681f9000 ---p 00000000 00:00 0 
+7f94681f9000-7f94681fc000 ---p 00000000 00:00 0 
+7f94681fc000-7f94682f9000 rw-p 00000000 00:00 0 
+7f94682f9000-7f94682fa000 ---p 00000000 00:00 0 
+7f94682fa000-7f94682fd000 ---p 00000000 00:00 0 
+7f94682fd000-7f94683fa000 rw-p 00000000 00:00 0 
+7f94683fa000-7f94683fb000 ---p 00000000 00:00 0 
+7f94683fb000-7f94683fe000 ---p 00000000 00:00 0 
+7f94683fe000-7f94684fb000 rw-p 00000000 00:00 0 
+7f94684fb000-7f94684fc000 ---p 00000000 00:00 0 
+7f94684fc000-7f94684ff000 ---p 00000000 00:00 0 
+7f94684ff000-7f94685fc000 rw-p 00000000 00:00 0 
+7f94685fc000-7f94685fd000 ---p 00000000 00:00 0 
+7f94685fd000-7f9468600000 ---p 00000000 00:00 0 
+7f9468600000-7f94686fd000 rw-p 00000000 00:00 0 
+7f94686fd000-7f94686fe000 ---p 00000000 00:00 0 
+7f94686fe000-7f9468701000 ---p 00000000 00:00 0 
+7f9468701000-7f94687fe000 rw-p 00000000 00:00 0 
+7f94687fe000-7f94687ff000 ---p 00000000 00:00 0 
+7f94687ff000-7f9468802000 ---p 00000000 00:00 0 
+7f9468802000-7f94688ff000 rw-p 00000000 00:00 0 
+7f94688ff000-7f9468900000 ---p 00000000 00:00 0 
+7f9468900000-7f9468903000 ---p 00000000 00:00 0 
+7f9468903000-7f9468a00000 rw-p 00000000 00:00 0 
+7f9468a00000-7f9468a18000 r-xp 00000000 103:06 37766634                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libnet.so
+7f9468a18000-7f9468c17000 ---p 00018000 103:06 37766634                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libnet.so
+7f9468c17000-7f9468c18000 r--p 00017000 103:06 37766634                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libnet.so
+7f9468c18000-7f9468c19000 rw-p 00018000 103:06 37766634                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libnet.so
+7f9468cff000-7f9468d00000 ---p 00000000 00:00 0 
+7f9468d00000-7f9468d03000 ---p 00000000 00:00 0 
+7f9468d03000-7f9468e00000 rw-p 00000000 00:00 0 
+7f9468e00000-7f9468e11000 r-xp 00000000 103:06 37766644                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libnio.so
+7f9468e11000-7f9469011000 ---p 00011000 103:06 37766644                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libnio.so
+7f9469011000-7f9469012000 r--p 00011000 103:06 37766644                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libnio.so
+7f9469012000-7f9469013000 rw-p 00012000 103:06 37766644                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libnio.so
+7f9469100000-7f9469103000 ---p 00000000 00:00 0 
+7f9469103000-7f9469200000 rw-p 00000000 00:00 0 
+7f9469200000-7f94694ea000 r--p 00000000 103:05 12979453                  /usr/lib/locale/locale-archive
+7f94695d9000-7f94695dc000 ---p 00000000 00:00 0 
+7f94695dc000-7f94696d9000 rw-p 00000000 00:00 0 
+7f94696d9000-7f94696dc000 ---p 00000000 00:00 0 
+7f94696dc000-7f94697d9000 rw-p 00000000 00:00 0 
+7f94697d9000-7f94697dc000 ---p 00000000 00:00 0 
+7f94697dc000-7f94698d9000 rw-p 00000000 00:00 0 
+7f94698d9000-7f94698da000 ---p 00000000 00:00 0 
+7f94698da000-7f946c021000 rw-p 00000000 00:00 0 
+7f946c021000-7f9470000000 ---p 00000000 00:00 0 
+7f947009c000-7f9474021000 rw-p 00000000 00:00 0 
+7f9474021000-7f9478000000 ---p 00000000 00:00 0 
+7f9478000000-7f9478021000 rw-p 00000000 00:00 0 
+7f9478021000-7f947c000000 ---p 00000000 00:00 0 
+7f947c000000-7f947c021000 rw-p 00000000 00:00 0 
+7f947c021000-7f9480000000 ---p 00000000 00:00 0 
+7f94800c9000-7f94802cb000 rw-p 00000000 00:00 0 
+7f94802cb000-7f948049c000 r--s 03cbd000 103:06 37766687                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/rt.jar
+7f948049c000-7f94808dc000 rw-p 00000000 00:00 0 
+7f94808dc000-7f9480c9c000 ---p 00000000 00:00 0 
+7f9480c9c000-7f9480dd5000 rw-p 00000000 00:00 0 
+7f9480dd5000-7f9480dd6000 ---p 00000000 00:00 0 
+7f9480dd6000-7f9480ed6000 rw-p 00000000 00:00 0 
+7f9480ed6000-7f9480ed7000 ---p 00000000 00:00 0 
+7f9480ed7000-7f9480fd7000 rw-p 00000000 00:00 0 
+7f9480fd7000-7f9480fd8000 ---p 00000000 00:00 0 
+7f9480fd8000-7f94810d8000 rw-p 00000000 00:00 0 
+7f94810d8000-7f94810d9000 ---p 00000000 00:00 0 
+7f94810d9000-7f94811d9000 rw-p 00000000 00:00 0 
+7f94811d9000-7f94811da000 ---p 00000000 00:00 0 
+7f94811da000-7f94812da000 rw-p 00000000 00:00 0 
+7f94812da000-7f94812db000 ---p 00000000 00:00 0 
+7f94812db000-7f94813db000 rw-p 00000000 00:00 0 
+7f94813db000-7f94813dc000 ---p 00000000 00:00 0 
+7f94813dc000-7f94814dc000 rw-p 00000000 00:00 0 
+7f94814dc000-7f94814dd000 ---p 00000000 00:00 0 
+7f94814dd000-7f94815dd000 rw-p 00000000 00:00 0 
+7f94815dd000-7f94815de000 ---p 00000000 00:00 0 
+7f94815de000-7f94816de000 rw-p 00000000 00:00 0 
+7f94816de000-7f94816df000 ---p 00000000 00:00 0 
+7f94816df000-7f94817df000 rw-p 00000000 00:00 0 
+7f94817df000-7f94817e0000 ---p 00000000 00:00 0 
+7f94817e0000-7f94818e0000 rw-p 00000000 00:00 0 
+7f94818e0000-7f94818e1000 ---p 00000000 00:00 0 
+7f94818e1000-7f94819e1000 rw-p 00000000 00:00 0 
+7f94819e1000-7f94819e2000 ---p 00000000 00:00 0 
+7f94819e2000-7f9481ae2000 rw-p 00000000 00:00 0 
+7f9481ae2000-7f9481ae3000 ---p 00000000 00:00 0 
+7f9481ae3000-7f9481fca000 rw-p 00000000 00:00 0 
+7f9481fca000-7f94830bb000 ---p 00000000 00:00 0 
+7f94830bb000-7f94834a2000 rw-p 00000000 00:00 0 
+7f94834a2000-7f9484593000 ---p 00000000 00:00 0 
+7f9484593000-7f948463a000 rw-p 00000000 00:00 0 
+7f948463a000-7f9484fff000 ---p 00000000 00:00 0 
+7f9484fff000-7f9485000000 rw-p 00000000 00:00 0 
+7f9485000000-7f94853b0000 rwxp 00000000 00:00 0 
+7f94853b0000-7f9494000000 ---p 00000000 00:00 0 
+7f9494000000-7f9494518000 rw-p 00000000 00:00 0 
+7f9494518000-7f9498000000 ---p 00000000 00:00 0 
+7f949803a000-7f949803b000 ---p 00000000 00:00 0 
+7f949803b000-7f949813b000 rw-p 00000000 00:00 0 
+7f949813b000-7f949813c000 ---p 00000000 00:00 0 
+7f949813c000-7f949823c000 rw-p 00000000 00:00 0 
+7f949823c000-7f949823d000 ---p 00000000 00:00 0 
+7f949823d000-7f949833d000 rw-p 00000000 00:00 0 
+7f949833d000-7f949833e000 ---p 00000000 00:00 0 
+7f949833e000-7f949843e000 rw-p 00000000 00:00 0 
+7f949843e000-7f949843f000 ---p 00000000 00:00 0 
+7f949843f000-7f949853f000 rw-p 00000000 00:00 0 
+7f949853f000-7f9498540000 ---p 00000000 00:00 0 
+7f9498540000-7f949864f000 rw-p 00000000 00:00 0 
+7f949864f000-7f9498a00000 ---p 00000000 00:00 0 
+7f9498a00000-7f9498a1b000 r-xp 00000000 103:06 37766638                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libzip.so
+7f9498a1b000-7f9498c1a000 ---p 0001b000 103:06 37766638                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libzip.so
+7f9498c1a000-7f9498c1b000 r--p 0001a000 103:06 37766638                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libzip.so
+7f9498c1b000-7f9498c1c000 rw-p 0001b000 103:06 37766638                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libzip.so
+7f9498cff000-7f9498d00000 ---p 00000000 00:00 0 
+7f9498d00000-7f9498e00000 rw-p 00000000 00:00 0 
+7f9498e00000-7f9498e0a000 r-xp 00000000 103:06 37766635                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libinstrument.so
+7f9498e0a000-7f9499009000 ---p 0000a000 103:06 37766635                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libinstrument.so
+7f9499009000-7f949900a000 r--p 00009000 103:06 37766635                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libinstrument.so
+7f949900a000-7f949900b000 rw-p 0000a000 103:06 37766635                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libinstrument.so
+7f94990ff000-7f9499100000 ---p 00000000 00:00 0 
+7f9499100000-7f9499200000 rw-p 00000000 00:00 0 
+7f9499200000-7f949922a000 r-xp 00000000 103:06 37766628                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libjava.so
+7f949922a000-7f9499429000 ---p 0002a000 103:06 37766628                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libjava.so
+7f9499429000-7f949942a000 r--p 00029000 103:06 37766628                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libjava.so
+7f949942a000-7f949942c000 rw-p 0002a000 103:06 37766628                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libjava.so
+7f94994ff000-7f9499500000 ---p 00000000 00:00 0 
+7f9499500000-7f9499600000 rw-p 00000000 00:00 0 
+7f9499600000-7f949960d000 r-xp 00000000 103:06 37766619                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libverify.so
+7f949960d000-7f949980c000 ---p 0000d000 103:06 37766619                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libverify.so
+7f949980c000-7f949980e000 r--p 0000c000 103:06 37766619                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libverify.so
+7f949980e000-7f949980f000 rw-p 0000e000 103:06 37766619                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/libverify.so
+7f9499869000-7f94998ff000 r--s 007cf000 103:06 39886755                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/ext/jfxrt.jar
+7f94998ff000-7f9499900000 ---p 00000000 00:00 0 
+7f9499900000-7f9499903000 ---p 00000000 00:00 0 
+7f9499903000-7f9499a00000 rw-p 00000000 00:00 0 
+7f9499a00000-7f949a762000 r-xp 00000000 103:06 37766613                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/server/libjvm.so
+7f949a762000-7f949a961000 ---p 00d62000 103:06 37766613                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/server/libjvm.so
+7f949a961000-7f949a9f8000 r--p 00d61000 103:06 37766613                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/server/libjvm.so
+7f949a9f8000-7f949aa21000 rw-p 00df8000 103:06 37766613                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/amd64/server/libjvm.so
+7f949aa21000-7f949aa54000 rw-p 00000000 00:00 0 
+7f949aa6a000-7f949aa7b000 r--s 001c5000 103:06 37766682                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/jsse.jar
+7f949aa7b000-7f949ab3f000 rw-p 00000000 00:00 0 
+7f949ab3f000-7f949ab4f000 r--p 00000000 103:05 12977728                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7f949ab4f000-7f949abc2000 r-xp 00010000 103:05 12977728                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7f949abc2000-7f949ac1c000 r--p 00083000 103:05 12977728                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7f949ac1c000-7f949ac1d000 r--p 000dc000 103:05 12977728                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7f949ac1d000-7f949ac1e000 rw-p 000dd000 103:05 12977728                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7f949ac1e000-7f949ac44000 r--p 00000000 103:05 12977725                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7f949ac44000-7f949ad99000 r-xp 00026000 103:05 12977725                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7f949ad99000-7f949aded000 r--p 0017b000 103:05 12977725                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7f949aded000-7f949adf1000 r--p 001cf000 103:05 12977725                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7f949adf1000-7f949adf3000 rw-p 001d3000 103:05 12977725                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7f949adf3000-7f949ae00000 rw-p 00000000 00:00 0 
+7f949ae00000-7f949ae17000 r-xp 00000000 103:06 39886760                  /home/brett/.jdks/corretto-1.8.0_362/lib/amd64/jli/libjli.so
+7f949ae17000-7f949b016000 ---p 00017000 103:06 39886760                  /home/brett/.jdks/corretto-1.8.0_362/lib/amd64/jli/libjli.so
+7f949b016000-7f949b017000 r--p 00016000 103:06 39886760                  /home/brett/.jdks/corretto-1.8.0_362/lib/amd64/jli/libjli.so
+7f949b017000-7f949b018000 rw-p 00017000 103:06 39886760                  /home/brett/.jdks/corretto-1.8.0_362/lib/amd64/jli/libjli.so
+7f949b01c000-7f949b023000 r--s 000d3000 103:06 37766683                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/jfr.jar
+7f949b023000-7f949b025000 r--s 0001f000 103:05 2761960                   /opt/netbrains/intellij/idea-IU-231.8109.175/lib/idea_rt.jar
+7f949b025000-7f949b027000 r--s 0000f000 103:06 48906396                  /home/brett/Documents/Brock/CS 3P95/Assignments/Assignment 2 Java/libs/lz4-java-1.8.0-sources.jar
+7f949b027000-7f949b029000 r--s 0001a000 103:06 48905593                  /home/brett/Documents/Brock/CS 3P95/Assignments/Assignment 2 Java/libs/lz4-java-1.8.0-javadoc.jar
+7f949b029000-7f949b02c000 r--s 000a4000 103:06 48905662                  /home/brett/Documents/Brock/CS 3P95/Assignments/Assignment 2 Java/libs/lz4-java-1.8.0.jar
+7f949b02c000-7f949b03e000 r--s 0034c000 103:06 37766686                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/resources.jar
+7f949b03e000-7f949b099000 rw-p 00000000 00:00 0 
+7f949b099000-7f949b09a000 r--p 00000000 103:05 12977739                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7f949b09a000-7f949b09b000 r-xp 00001000 103:05 12977739                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7f949b09b000-7f949b09c000 r--p 00002000 103:05 12977739                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7f949b09c000-7f949b09d000 r--p 00002000 103:05 12977739                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7f949b09d000-7f949b09e000 rw-p 00003000 103:05 12977739                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7f949b09e000-7f949b0a0000 rw-p 00000000 00:00 0 
+7f949b0a0000-7f949b0a1000 r--p 00000000 103:05 12977727                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f949b0a1000-7f949b0a2000 r-xp 00001000 103:05 12977727                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f949b0a2000-7f949b0a3000 r--p 00002000 103:05 12977727                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f949b0a3000-7f949b0a4000 r--p 00002000 103:05 12977727                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f949b0a4000-7f949b0a5000 rw-p 00003000 103:05 12977727                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f949b0a5000-7f949b0a6000 r--p 00000000 103:05 12977737                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f949b0a6000-7f949b0a7000 r-xp 00001000 103:05 12977737                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f949b0a7000-7f949b0a8000 r--p 00002000 103:05 12977737                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f949b0a8000-7f949b0a9000 r--p 00002000 103:05 12977737                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f949b0a9000-7f949b0aa000 rw-p 00003000 103:05 12977737                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f949b0ab000-7f949b0ac000 r--s 00000000 103:06 37766681                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/management-agent.jar
+7f949b0ac000-7f949b0bd000 r--s 001c5000 103:06 37766682                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/jsse.jar
+7f949b0bd000-7f949b0bf000 r--s 00007000 103:06 37766689                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/jfxswt.jar
+7f949b0bf000-7f949b0c6000 r--s 000d3000 103:06 37766683                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/jfr.jar
+7f949b0c6000-7f949b0c8000 r--s 00016000 103:06 37766680                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/jce.jar
+7f949b0c8000-7f949b0cd000 r--s 002f9000 103:06 37766684                  /home/brett/.jdks/corretto-1.8.0_362/jre/lib/charsets.jar
+7f949b0cd000-7f949b0d5000 rw-s 00000000 103:05 6698426                   /tmp/hsperfdata_brett/130169
+7f949b0d5000-7f949b0d6000 rw-p 00000000 00:00 0 
+7f949b0d6000-7f949b0d7000 r--p 00000000 00:00 0 
+7f949b0d7000-7f949b0d9000 rw-p 00000000 00:00 0 
+7f949b0d9000-7f949b0da000 r--p 00000000 103:05 12977722                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f949b0da000-7f949b0ff000 r-xp 00001000 103:05 12977722                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f949b0ff000-7f949b109000 r--p 00026000 103:05 12977722                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f949b109000-7f949b10b000 r--p 00030000 103:05 12977722                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f949b10b000-7f949b10d000 rw-p 00032000 103:05 12977722                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7ffc38ac5000-7ffc38ae6000 rw-p 00000000 00:00 0                          [stack]
+7ffc38bd0000-7ffc38bd4000 r--p 00000000 00:00 0                          [vvar]
+7ffc38bd4000-7ffc38bd6000 r-xp 00000000 00:00 0                          [vdso]
+
+VM Arguments:
+jvm_args: -javaagent:/opt/netbrains/intellij/idea-IU-231.8109.175/lib/idea_rt.jar=39933:/opt/netbrains/intellij/idea-IU-231.8109.175/bin -Dfile.encoding=UTF-8 
+java_command: server.Server
+java_class_path (initial): /home/brett/.jdks/corretto-1.8.0_362/jre/lib/charsets.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/ext/cldrdata.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/ext/dnsns.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/ext/jaccess.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/ext/jfxrt.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/ext/localedata.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/ext/nashorn.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/ext/sunec.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/ext/sunjce_provider.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/ext/sunpkcs11.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/ext/zipfs.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/jce.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/jfr.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/jfxswt.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/jsse.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/management-agent.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/resources.jar:/home/brett/.jdks/corretto-1.8.0_362/jre/lib/rt.jar:/home/brett/Documents/Brock/CS 3P95/Assignments/Assignment 2 Java/out/production/Assignment 2 Java:/home/brett/Documents/Brock/CS 3P95/Assignments/Assignment 2 Java/libs/lz4-java-1.8.0.jar:/home/brett/Documents/Brock/CS 3P95/Assignments/Assignment 2 Java/libs/lz4-java-1.8.0-javadoc.jar:/home/brett/Documents/Brock/CS 3P95/Assignments/Assignment 2 Java/libs/lz4-java-1.8.0-sources.jar:/opt/netbrains/intellij/idea-IU-231.8109.175/lib/idea_rt.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/games
+SHELL=/usr/bin/zsh
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xb3b2f0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xb3b2f0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0x960960], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0x960960], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0x960960], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0x960960], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0x960f10], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: [libjvm.so+0x960e50], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGINT: [libjvm.so+0x960e50], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGTERM: [libjvm.so+0x960e50], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGQUIT: [libjvm.so+0x960e50], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:PRETTY_NAME="Debian GNU/Linux trixie/sid"
+NAME="Debian GNU/Linux"
+VERSION_CODENAME=trixie
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+
+uname:Linux 6.5.0-2-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.5.6-1 (2023-10-07) x86_64
+libc:glibc 2.37 NPTL 2.37 
+rlimit: STACK 8192k, CORE 0k, NPROC 255763, NOFILE 1048576, AS infinity
+load average:4.94 5.55 5.19
+
+/proc/meminfo:
+MemTotal:       65566496 kB
+MemFree:         2235828 kB
+MemAvailable:   35517824 kB
+Buffers:          538572 kB
+Cached:         31247140 kB
+SwapCached:         1156 kB
+Active:         24368692 kB
+Inactive:       35100532 kB
+Active(anon):   22730000 kB
+Inactive(anon):  5268960 kB
+Active(file):    1638692 kB
+Inactive(file): 29831572 kB
+Unevictable:        2328 kB
+Mlocked:            2328 kB
+SwapTotal:      16777212 kB
+SwapFree:       16770812 kB
+Zswap:                 0 kB
+Zswapped:              0 kB
+Dirty:            155772 kB
+Writeback:             0 kB
+AnonPages:      26269700 kB
+Mapped:          3325552 kB
+Shmem:            314960 kB
+KReclaimable:    2540752 kB
+Slab:            2998452 kB
+SReclaimable:    2540752 kB
+SUnreclaim:       457700 kB
+KernelStack:       66096 kB
+PageTables:       171260 kB
+SecPageTables:         0 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    49560460 kB
+Committed_AS:   53779640 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      121004 kB
+VmallocChunk:          0 kB
+Percpu:            33152 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:  12181504 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+FileHugePages:         0 kB
+FilePmdMapped:         0 kB
+Unaccepted:            0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+DirectMap4k:     1439752 kB
+DirectMap2M:    52813824 kB
+DirectMap1G:    12582912 kB
+
+
+CPU:total 32 (initial active 32) (32 cores per cpu, 1 threads per core) family 25 model 97 stepping 2, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, mmxext, 3dnowpref, lzcnt, sse4a, tsc, tscinvbit, tscinv, bmi1
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5294.629
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 0
+cpu cores	: 16
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 1
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5308.939
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 1
+cpu cores	: 16
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 2
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5299.717
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 2
+cpu cores	: 16
+apicid		: 4
+initial apicid	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 3
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5304.503
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 3
+cpu cores	: 16
+apicid		: 6
+initial apicid	: 6
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 4
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5304.078
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 4
+cpu cores	: 16
+apicid		: 8
+initial apicid	: 8
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 5
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5305.767
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 5
+cpu cores	: 16
+apicid		: 10
+initial apicid	: 10
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 6
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5299.888
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 6
+cpu cores	: 16
+apicid		: 12
+initial apicid	: 12
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 7
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5298.255
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 7
+cpu cores	: 16
+apicid		: 14
+initial apicid	: 14
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 8
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5228.148
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 8
+cpu cores	: 16
+apicid		: 16
+initial apicid	: 16
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 9
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5224.538
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 9
+cpu cores	: 16
+apicid		: 18
+initial apicid	: 18
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 10
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5106.778
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 10
+cpu cores	: 16
+apicid		: 20
+initial apicid	: 20
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 11
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5237.953
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 11
+cpu cores	: 16
+apicid		: 22
+initial apicid	: 22
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 12
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5215.703
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 12
+cpu cores	: 16
+apicid		: 24
+initial apicid	: 24
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 13
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5228.509
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 13
+cpu cores	: 16
+apicid		: 26
+initial apicid	: 26
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 14
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5233.621
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 14
+cpu cores	: 16
+apicid		: 28
+initial apicid	: 28
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 15
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5233.518
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 15
+cpu cores	: 16
+apicid		: 30
+initial apicid	: 30
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 16
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5324.484
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 0
+cpu cores	: 16
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 17
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5305.802
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 1
+cpu cores	: 16
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 18
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5272.404
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 2
+cpu cores	: 16
+apicid		: 5
+initial apicid	: 5
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 19
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5258.691
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 3
+cpu cores	: 16
+apicid		: 7
+initial apicid	: 7
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 20
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5271.033
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 4
+cpu cores	: 16
+apicid		: 9
+initial apicid	: 9
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 21
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5267.897
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 5
+cpu cores	: 16
+apicid		: 11
+initial apicid	: 11
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 22
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5255.393
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 6
+cpu cores	: 16
+apicid		: 13
+initial apicid	: 13
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 23
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5279.056
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 7
+cpu cores	: 16
+apicid		: 15
+initial apicid	: 15
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 24
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5252.851
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 8
+cpu cores	: 16
+apicid		: 17
+initial apicid	: 17
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 25
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5245.457
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 9
+cpu cores	: 16
+apicid		: 19
+initial apicid	: 19
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 26
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5253.186
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 10
+cpu cores	: 16
+apicid		: 21
+initial apicid	: 21
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 27
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 4938.418
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 11
+cpu cores	: 16
+apicid		: 23
+initial apicid	: 23
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 28
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5244.442
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 12
+cpu cores	: 16
+apicid		: 25
+initial apicid	: 25
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 29
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5246.833
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 13
+cpu cores	: 16
+apicid		: 27
+initial apicid	: 27
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 30
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5230.756
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 14
+cpu cores	: 16
+apicid		: 29
+initial apicid	: 29
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+processor	: 31
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 97
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+stepping	: 2
+microcode	: 0xa601203
+cpu MHz		: 5251.003
+cache size	: 1024 KB
+physical id	: 0
+siblings	: 32
+core id		: 15
+cpu cores	: 16
+apicid		: 31
+initial apicid	: 31
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 16
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid overflow_recov succor smca fsrm flush_l1d
+bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+bogomips	: 8983.85
+TLB size	: 3584 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+
+
+Memory: 4k page, physical 65566496k(2235480k free), swap 16777212k(16770812k free)
+
+vm_info: OpenJDK 64-Bit Server VM (25.362-b08) for linux-amd64 JRE (1.8.0_362-b08), built on Jan 13 2023 13:27:34 by "jenkins" with gcc 7.3.1 20180303 (Red Hat 7.3.1-5)
+
+time: Tue Nov 14 00:13:36 2023
+timezone: EST
+elapsed time: 4.561342 seconds (0d 0h 0m 4s)
+
