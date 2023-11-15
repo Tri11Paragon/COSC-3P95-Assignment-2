@@ -8,18 +8,18 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class FileChunkingWriter {
+public class ChunkedCompressedChecksumFileWriter {
 
-    private final DataOutputStream writer;
+    private final DataOutputStream networkStreamWriter;
     private final StreamingXXHash64 streamHash;
-    private final DataInputStream fileReader;
+    private final DataInputStream fileInputReader;
     private final int bufferSize;
     private final long seed;
 
-    public FileChunkingWriter(DataOutputStream writer, DataInputStream fileReader, int bufferSize, long seed){
-        this.writer = writer;
+    public ChunkedCompressedChecksumFileWriter(DataOutputStream networkStreamWriter, DataInputStream fileInputReader, int bufferSize, long seed){
+        this.networkStreamWriter = networkStreamWriter;
         this.streamHash = FileUtil.XX_HASH_FACTORY.newStreamingHash64(seed);
-        this.fileReader = fileReader;
+        this.fileInputReader = fileInputReader;
         this.bufferSize = bufferSize;
         this.seed = seed;
     }
@@ -37,23 +37,27 @@ public class FileChunkingWriter {
         ArrayData compressed = compress(uncompressed);
 
         // write data
-        writer.writeInt(uncompressed.length);
-        writer.writeInt(compressed.getActualLength());
-        writer.writeLong(hash);
-        writer.write(compressed.getData(), 0, compressed.getActualLength());
-        writer.flush();
+        writeHeader(uncompressed.length, compressed.getActualLength(), hash);
+        networkStreamWriter.write(compressed.getData(), 0, compressed.getActualLength());
+        networkStreamWriter.flush();
     }
 
     public void close() throws IOException {
-        writer.writeInt(0);
-        writer.writeLong(streamHash.getValue());
-        writer.flush();
+        networkStreamWriter.writeInt(0);
+        networkStreamWriter.writeLong(streamHash.getValue());
+        networkStreamWriter.flush();
+    }
+
+    private void writeHeader(int uncompressed, int compressed, long hash) throws IOException {
+        networkStreamWriter.writeInt(uncompressed);
+        networkStreamWriter.writeInt(compressed);
+        networkStreamWriter.writeLong(hash);
     }
 
     private byte[] readSome() throws IOException {
-        byte[] readBytes = new byte[Integer.min(fileReader.available(), bufferSize)];
+        byte[] readBytes = new byte[Integer.min(fileInputReader.available(), bufferSize)];
 
-        int totalRead = fileReader.read(readBytes);
+        int totalRead = fileInputReader.read(readBytes);
         assert(readBytes.length == totalRead);
 
         return readBytes;

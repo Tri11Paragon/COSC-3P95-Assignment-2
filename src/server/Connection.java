@@ -1,11 +1,7 @@
 package server;
 
-import net.jpountz.lz4.LZ4BlockInputStream;
-import net.jpountz.lz4.LZ4BlockOutputStream;
-import net.jpountz.lz4.LZ4FrameInputStream;
-import net.jpountz.lz4.LZ4FrameOutputStream;
 import shared.ExceptionLogger;
-import shared.FileHeader;
+import shared.FileUtil;
 
 import java.io.*;
 import java.net.Socket;
@@ -37,8 +33,8 @@ public class Connection implements Runnable {
                 if (in.available() > 0) {
                     byte command = in.readByte();
 
-                    if (command == FileHeader.COMMAND.WRITE.type)
-                        FileHeader.receive(in);
+                    if (command == FileUtil.COMMAND.WRITE.type)
+                        FileUtil.receive(in);
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);

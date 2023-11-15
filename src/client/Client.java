@@ -1,24 +1,14 @@
 package client;
 
-import net.jpountz.lz4.LZ4BlockInputStream;
-import net.jpountz.lz4.LZ4BlockOutputStream;
-import net.jpountz.lz4.LZ4FrameInputStream;
-import net.jpountz.lz4.LZ4FrameOutputStream;
 import server.Server;
 import shared.ExceptionLogger;
-import shared.FileHeader;
+import shared.FileUtil;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.*;
 
 public class Client {
-
-    public static class ClientInvalidUsageException extends RuntimeException {
-        public ClientInvalidUsageException(String str){
-            super(str);
-        }
-    }
 
     private final Socket serverConnection;
     private final DataOutputStream out;
@@ -30,19 +20,13 @@ public class Client {
         in = new DataInputStream(new BufferedInputStream(serverConnection.getInputStream()));
     }
 
-    void sendFile(String path){
-        if (new File(path).isDirectory())
-            throw new ClientInvalidUsageException("Unable to send directory. Did you mean sendDir()?");
+    public Client sendFile(String path){
         System.out.println("Sending path " + path);
-        new FileHeader(path).write(out);
-        try {
-            out.flush();
-        } catch (IOException e) {
-            ExceptionLogger.log(e);
-        }
+        FileUtil.write(path, out);
+        return this;
     }
 
-    void sendDir(String path){
+    public Client sendDir(String path){
         File p = new File(path);
         ArrayDeque<File> filesToCheck = new ArrayDeque<>(Arrays.asList(Objects.requireNonNull(p.listFiles())));
         while (!filesToCheck.isEmpty()) {
@@ -52,9 +36,10 @@ public class Client {
             } else
                 sendFile(f.getPath());
         }
+        return this;
     }
 
-    void close(){
+    public void close(){
         try {
             in.close();
             out.close();
@@ -66,7 +51,8 @@ public class Client {
 
     public static void main(String[] args) {
         try {
-            new Client("localhost", Server.SERVER_PORT).sendDir("in/");
+            new Client("localhost", Server.SERVER_PORT).sendDir("in/").close();
+            //new Client("localhost", Server.SERVER_PORT).sendFile("in/ihaveafile.txt").close();
         } catch (Exception e){
             ExceptionLogger.log(e);
         }
