@@ -1,29 +1,14 @@
 package shared;
 
 import client.Client;
-import net.jpountz.lz4.LZ4Compressor;
-import net.jpountz.lz4.LZ4Factory;
-import net.jpountz.lz4.LZ4FastDecompressor;
+import client.FileChunkingWriter;
 import net.jpountz.xxhash.StreamingXXHash64;
-import net.jpountz.xxhash.XXHash64;
-import net.jpountz.xxhash.XXHashFactory;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class FileHeader {
-
-    private static final int READER_SIZE = 8192;
-
-    private static final LZ4Factory LZ_FACTORY = LZ4Factory.fastestInstance();
-    private static final LZ4Compressor COMPRESSOR = LZ_FACTORY.highCompressor();
-    private static final LZ4FastDecompressor DECOMPRESSOR = LZ_FACTORY.fastDecompressor();
-
-    private static final XXHashFactory XX_HASH_FACTORY = XXHashFactory.fastestInstance();
-    private static final XXHash64 HASH_64 = XX_HASH_FACTORY.hash64();
-
-    private static final long SEED = 691;
 
     public enum COMMAND {
         WRITE((byte) 1);
@@ -49,41 +34,20 @@ public class FileHeader {
         System.out.println(relative_path);
     }
 
-    public void write(DataOutputStream writer) {
+    public void write(DataOutputStream dataOut) {
         try {
             DataInputStream fileReader = new DataInputStream(new BufferedInputStream(Files.newInputStream(Paths.get(full_path))));
 
-            writer.writeByte(COMMAND.WRITE.type);
-            writer.writeUTF(relative_path);
+            dataOut.writeByte(COMMAND.WRITE.type);
+            dataOut.writeUTF(relative_path);
 
-            StreamingXXHash64 streamHash = XX_HASH_FACTORY.newStreamingHash64(SEED);
-            while (fileReader.available() > 0) {
-                // read / write files in chunks
-                byte[] readBytes = new byte[Integer.min(fileReader.available(), READER_SIZE)];
+            FileChunkingWriter writer = new FileChunkingWriter(dataOut, fileReader, FileUtil.READER_SIZE, FileUtil.SEED);
 
-                int totalRead = fileReader.read(readBytes);
-                if (totalRead <= 0)
-                    break;
+            while (fileReader.available() > 0)
+                writer.processChunk();
 
-                // create a checksum for this chunk + update the overall checksum
-                streamHash.update(readBytes, 0, totalRead);
-                long hash = HASH_64.hash(readBytes, 0, totalRead, SEED);
-
-                // apply compression
-                int maxCompressedLength = COMPRESSOR.maxCompressedLength(readBytes.length);
-                byte[] compressedBytes = new byte[maxCompressedLength];
-                int compressedLength = COMPRESSOR.compress(readBytes, 0, readBytes.length, compressedBytes, 0, maxCompressedLength);
-
-                writer.writeInt(totalRead);
-                writer.writeInt(compressedLength);
-                writer.writeLong(hash);
-                writer.write(compressedBytes, 0, compressedLength);
-                writer.flush();
-            }
+            writer.close();
             fileReader.close();
-            writer.writeInt(0);
-            writer.writeLong(streamHash.getValue());
-            writer.flush();
         } catch (Exception e) {
             ExceptionLogger.log(e);
         }
@@ -96,7 +60,7 @@ public class FileHeader {
 
             DataOutputStream writer = new DataOutputStream(new BufferedOutputStream(Files.newOutputStream(Paths.get(path))));
 
-            StreamingXXHash64 computedStreamHash = XX_HASH_FACTORY.newStreamingHash64(SEED);
+            StreamingXXHash64 computedStreamHash = FileUtil.XX_HASH_FACTORY.newStreamingHash64(FileUtil.SEED);
             while (true) {
                 int uncompressed_size = reader.readInt();
 
@@ -111,11 +75,11 @@ public class FileHeader {
                 assert(amount == compressed_size);
 
                 byte[] restored = new byte[uncompressed_size];
-                int len = DECOMPRESSOR.decompress(data, 0, restored, 0, uncompressed_size);
+                int len = FileUtil.DECOMPRESSOR.decompress(data, 0, restored, 0, uncompressed_size);
 
                 assert(len == uncompressed_size);
 
-                long computedHash = HASH_64.hash(restored, 0, uncompressed_size, SEED);
+                long computedHash = FileUtil.HASH_64.hash(restored, 0, uncompressed_size, FileUtil.SEED);
                 computedStreamHash.update(restored, 0, uncompressed_size);
 
                 if (hash != computedHash)
