@@ -1,6 +1,7 @@
 package shared;
 
 import client.ChunkedCompressedChecksumFileWriter;
+import io.opentelemetry.api.trace.Span;
 import net.jpountz.lz4.LZ4Compressor;
 import net.jpountz.lz4.LZ4Factory;
 import net.jpountz.lz4.LZ4FastDecompressor;
@@ -11,6 +12,7 @@ import server.ChunkedCompressedChecksumFileReader;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
 
 public class FileUtil {
 
@@ -55,9 +57,10 @@ public class FileUtil {
         }
     }
 
-    public static void receive(DataInputStream dataIn) {
+    public static void receive(DataInputStream dataIn, Span fs) {
         try {
             String path = createPath(dataIn.readUTF());
+            fs.addEvent("Sending file " + path, System.nanoTime(), TimeUnit.NANOSECONDS);
             System.out.println("Writing to file: " + path);
 
             ChunkedCompressedChecksumFileReader reader = new ChunkedCompressedChecksumFileReader(dataIn, path, FileUtil.SEED);
