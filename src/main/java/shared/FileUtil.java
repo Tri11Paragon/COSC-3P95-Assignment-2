@@ -2,6 +2,7 @@ package shared;
 
 import client.ChunkedCompressedChecksumFileWriter;
 import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.Tracer;
 import net.jpountz.lz4.LZ4Compressor;
 import net.jpountz.lz4.LZ4Factory;
 import net.jpountz.lz4.LZ4FastDecompressor;
@@ -28,7 +29,8 @@ public class FileUtil {
     public static final XXHash64 HASH_64 = XX_HASH_FACTORY.hash64();
 
     public enum COMMAND {
-        WRITE((byte) 1);
+        CLOSE((byte) 1),
+        WRITE((byte) 2);
         public final byte type;
 
         COMMAND(byte type) {
@@ -57,21 +59,26 @@ public class FileUtil {
         }
     }
 
-    public static void receive(DataInputStream dataIn, Span fs) {
+    public static void receive(DataInputStream dataIn, Tracer trace, Span sp) {
         try {
             String path = createPath(dataIn.readUTF());
-            fs.addEvent("Sending file " + path, System.nanoTime(), TimeUnit.NANOSECONDS);
+            sp.addEvent("Sending file " + path);
             System.out.println("Writing to file: " + path);
+            sp.setAttribute("File", path);
+            sp.addEvent("File Received");
 
             ChunkedCompressedChecksumFileReader reader = new ChunkedCompressedChecksumFileReader(dataIn, path, FileUtil.SEED);
 
             // ugh I want while(reader.readChunk().getUncompressed()); but it makes warnings!!!
             while(true) {
-                if (reader.readChunk().getUncompressed() == 0)
+                if (reader.readChunk(trace, sp).getUncompressed() == 0) {
+                    sp.addEvent("Chunk Read");
                     break;
+                }
             }
             reader.close();
             System.out.println("Writing " + path + " complete");
+            sp.addEvent("File Written");
         } catch (Exception e) {
             ExceptionLogger.log(e);
         }

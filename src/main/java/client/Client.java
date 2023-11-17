@@ -41,12 +41,15 @@ public class Client {
 
     public void close(){
         try {
+            out.writeByte(FileUtil.COMMAND.CLOSE.type);
+            out.flush();
             in.close();
             out.close();
             serverConnection.close();
         } catch (Exception e){
             ExceptionLogger.log(e);
         }
+        System.out.println("Disconnected!");
     }
 
     public static void main(String[] args) {

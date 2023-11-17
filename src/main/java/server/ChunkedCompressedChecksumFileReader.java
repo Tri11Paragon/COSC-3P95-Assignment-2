@@ -1,5 +1,9 @@
 package server;
 
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.Tracer;
+import io.opentelemetry.context.Context;
+import io.opentelemetry.context.Scope;
 import net.jpountz.xxhash.StreamingXXHash64;
 import shared.ArrayData;
 import shared.FileUtil;
@@ -7,6 +11,7 @@ import shared.FileUtil;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
 
 public class ChunkedCompressedChecksumFileReader {
 
@@ -22,14 +27,24 @@ public class ChunkedCompressedChecksumFileReader {
         this.seed = seed;
     }
 
-    public FileHeader readChunk() throws IOException {
+    public FileHeader readChunk(Tracer trace, Span sp) throws IOException {
+        //Span gf = trace.spanBuilder("Chunk Read").setParent(Context.current().with(sp)).startSpan();
         FileHeader header = readHeader();
-        if (header.getUncompressed() == 0)
-            return header;
-        byte[] data = readSome(header);
-        byte[] decompressed = decompress(header, data);
-        hash(header, decompressed);
-        fileOutputWriter.write(decompressed, 0, decompressed.length);
+        //try (Scope scope = gf.makeCurrent()) {
+            if (header.getUncompressed() == 0)
+                return header;
+            sp.addEvent("Read Data");
+            byte[] data = readSome(header);
+            sp.addEvent("Decompress Data");
+            byte[] decompressed = decompress(header, data);
+            sp.addEvent("Hash");
+            hash(header, decompressed);
+            sp.addEvent("Write");
+            fileOutputWriter.write(decompressed, 0, decompressed.length);
+            sp.addEvent("End");
+//        } finally {
+//            gf.end();
+//        }
         return header;
     }
 
