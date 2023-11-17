@@ -30,6 +30,9 @@ public class ChunkedCompressedChecksumFileReader {
     public FileHeader readChunk(Tracer trace, Span sp) throws IOException {
         Span gf = trace.spanBuilder("Chunk Read").startSpan();
         FileHeader header = readHeader();
+        gf.setAttribute("Read Uncompressed", header.getUncompressed());
+        gf.setAttribute("Read Compressed", header.getCompressed());
+        gf.setAttribute("Read Hash", header.getHash());
         try (Scope scope = gf.makeCurrent()) {
             if (header.getUncompressed() == 0)
                 return header;

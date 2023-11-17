@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class FileUtil {
 
     // do not change it breaks stuff
-    protected static final int READER_SIZE = 8192;
+    protected static final int READER_SIZE = 131072;
     public static final long SEED = 691;
 
     private static final LZ4Factory LZ_FACTORY = LZ4Factory.fastestInstance();
