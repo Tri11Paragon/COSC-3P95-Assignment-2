@@ -21,7 +21,7 @@ public class Server {
 
     public static final int SERVER_PORT = 42069;
 
-    private volatile boolean running = true;
+    public static volatile boolean running = true;
 
     private static final OpenTelemetry ot = OTelUtils.create();
 
@@ -67,8 +67,14 @@ public class Server {
         return running;
     }
 
+    private static Server srv;
+
     public static void main(String[] args) {
-        new Server();
+        srv = new Server();
+    }
+
+    public static void close(){
+        srv.notifyAll();
     }
 
 }

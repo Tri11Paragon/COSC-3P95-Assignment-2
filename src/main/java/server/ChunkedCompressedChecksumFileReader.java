@@ -28,23 +28,23 @@ public class ChunkedCompressedChecksumFileReader {
     }
 
     public FileHeader readChunk(Tracer trace, Span sp) throws IOException {
-        //Span gf = trace.spanBuilder("Chunk Read").setParent(Context.current().with(sp)).startSpan();
+        Span gf = trace.spanBuilder("Chunk Read").setParent(Context.current().with(sp)).startSpan();
         FileHeader header = readHeader();
-        //try (Scope scope = gf.makeCurrent()) {
+        try (Scope scope = gf.makeCurrent()) {
             if (header.getUncompressed() == 0)
                 return header;
-            sp.addEvent("Read Data");
+            gf.addEvent("Read Data");
             byte[] data = readSome(header);
-            sp.addEvent("Decompress Data");
+            gf.addEvent("Decompress Data");
             byte[] decompressed = decompress(header, data);
-            sp.addEvent("Hash");
+            gf.addEvent("Hash");
             hash(header, decompressed);
-            sp.addEvent("Write");
+            gf.addEvent("Write");
             fileOutputWriter.write(decompressed, 0, decompressed.length);
-            sp.addEvent("End");
-//        } finally {
-//            gf.end();
-//        }
+            gf.addEvent("End");
+        } finally {
+            gf.end();
+        }
         return header;
     }
 

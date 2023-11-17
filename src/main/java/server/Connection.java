@@ -44,7 +44,6 @@ public class Connection implements Runnable {
         try (Scope scope = fileSend.makeCurrent()) {
             int filesReceived = 0;
             while (server.isRunning()) {
-                System.out.println("Hello " + clientSocket.isConnected());
                 if (!clientSocket.isConnected()) {
                     System.out.println("Client Disconnected");
                     break;
@@ -78,6 +77,8 @@ public class Connection implements Runnable {
             in.close();
             clientSocket.close();
         } catch (Exception ignored) {}
+        Server.running = false;
+        Server.close();
     }
 
 }
