@@ -11,6 +11,7 @@ import shared.OTelUtils;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -27,39 +28,32 @@ public class Server {
 
     public Server() {
         Tracer main = ot.getTracer("Main Server", "0.69");
-        Span sbs = main.spanBuilder("Start Server").setAttribute("Server Port", SERVER_PORT).startSpan();
-        try (Scope scope = sbs.makeCurrent()) {
+        try {
             System.out.println("Starting server");
-            sbs.addEvent("Server Start", System.nanoTime(), TimeUnit.NANOSECONDS);
             ServerSocket serverSocket = new ServerSocket(SERVER_PORT);
-            Runtime.getRuntime().addShutdownHook(new Thread() {
-                @Override
-                public void run() {
-                    System.out.println("Closing Server");
-                    running = false;
-                    sbs.end();
-                    executor.shutdown();
-                    try {
-                        serverSocket.close();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
             System.out.println("Server Started");
 
             while (running)
-                executor.execute(new Connection(this, main, sbs, serverSocket.accept()));
+                executor.execute(new Connection(this, main, serverSocket.accept()));
 
             serverSocket.close();
         } catch (IOException e) {
-            sbs.recordException(e);
             ExceptionLogger.log(e);
-        } finally {
-            sbs.end();
         }
         System.out.println("Closing thread pool");
         executor.shutdown();
+        try {
+            if (!executor.awaitTermination(1, TimeUnit.SECONDS)){
+                List<Runnable> runs = executor.shutdownNow();
+                System.out.println("Hello runs " + runs.size());
+                if (!executor.awaitTermination(1, TimeUnit.SECONDS))
+                    System.out.println("Unable to terminate");
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
+            ExceptionLogger.log(e);
+        }
         System.out.println("Server exited!");
     }
 
@@ -74,7 +68,8 @@ public class Server {
     }
 
     public static void close(){
-        srv.notifyAll();
+        if (srv != null)
+            srv.notifyAll();
     }
 
 }

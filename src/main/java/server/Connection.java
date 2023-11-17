@@ -1,5 +1,6 @@
 package server;
 
+import client.Client;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanBuilder;
 import io.opentelemetry.api.trace.Tracer;
@@ -18,10 +19,10 @@ public class Connection implements Runnable {
     private final Server server;
     private DataOutputStream out;
     private DataInputStream in;
-    private Tracer trace;
-    private Span fileSend;
+    private final Tracer trace;
+    private final Span fileSend;
 
-    public Connection(Server server, Tracer trace, Span parent, Socket clientSocket) {
+    public Connection(Server server, Tracer trace, Socket clientSocket) {
         this.server = server;
         this.clientSocket = clientSocket;
         this.trace = trace;
@@ -31,12 +32,12 @@ public class Connection implements Runnable {
         } catch (Exception e) {
             ExceptionLogger.log(e);
         }
-        parent.addEvent("Connection Established");
-        SpanBuilder sb = trace.spanBuilder("New Connection");
+        SpanBuilder sb = trace.spanBuilder("New Client Connection");
         sb.setAttribute("INetAddress", clientSocket.getInetAddress().toString());
         sb.setAttribute("Port", clientSocket.getPort());
         sb.setAttribute("LocalPort", clientSocket.getLocalPort());
         fileSend = sb.startSpan();
+        fileSend.addEvent("Connection Established");
     }
 
     @Override
@@ -66,6 +67,7 @@ public class Connection implements Runnable {
                         }
                     }
                 } catch (IOException e) {
+                    fileSend.recordException(e);
                     throw new RuntimeException(e);
                 }
             }
@@ -76,9 +78,16 @@ public class Connection implements Runnable {
             out.close();
             in.close();
             clientSocket.close();
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            ExceptionLogger.log(e);
+        }
+        System.out.println("Client Disconnected");
         Server.running = false;
-        Server.close();
+//        try {
+//            // evil hack
+//            new Client("localhost", Server.SERVER_PORT).close();
+//        } catch (IOException ignored) {
+//        }
     }
 
 }

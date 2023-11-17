@@ -11,9 +11,10 @@ public class FileHeader {
     private int compressed;
     private long hash;
 
-    public FileHeader() {}
+    public FileHeader() {
+    }
 
-    public FileHeader read(DataInputStream reader) throws IOException{
+    public FileHeader read(DataInputStream reader) throws IOException {
         uncompressed = reader.readInt();
         if (uncompressed == 0)
             return this;

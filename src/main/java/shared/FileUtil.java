@@ -3,6 +3,7 @@ package shared;
 import client.ChunkedCompressedChecksumFileWriter;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.Tracer;
+import io.opentelemetry.context.Scope;
 import net.jpountz.lz4.LZ4Compressor;
 import net.jpountz.lz4.LZ4Factory;
 import net.jpountz.lz4.LZ4FastDecompressor;
@@ -70,7 +71,7 @@ public class FileUtil {
             ChunkedCompressedChecksumFileReader reader = new ChunkedCompressedChecksumFileReader(dataIn, path, FileUtil.SEED);
 
             // ugh I want while(reader.readChunk().getUncompressed()); but it makes warnings!!!
-            while(true) {
+            while (true) {
                 if (reader.readChunk(trace, sp).getUncompressed() == 0) {
                     sp.addEvent("Chunk Read");
                     break;

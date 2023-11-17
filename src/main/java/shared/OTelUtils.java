@@ -16,6 +16,7 @@ import io.opentelemetry.sdk.metrics.SdkMeterProvider;
 import io.opentelemetry.sdk.metrics.export.PeriodicMetricReader;
 import io.opentelemetry.sdk.resources.Resource;
 import io.opentelemetry.sdk.trace.SdkTracerProvider;
+import io.opentelemetry.sdk.trace.export.BatchSpanProcessor;
 import io.opentelemetry.sdk.trace.export.SimpleSpanProcessor;
 import io.opentelemetry.sdk.trace.export.SpanExporter;
 import io.opentelemetry.semconv.ResourceAttributes;
@@ -30,20 +31,10 @@ public class OTelUtils {
                 .setResource(resource)
                 .build();
 
-        SdkMeterProvider sdkMeterProvider = SdkMeterProvider.builder()
-                .registerMetricReader(PeriodicMetricReader.builder(LoggingMetricExporter.create()).build())
-                .setResource(resource)
-                .build();
-
-        SdkLoggerProvider sdkLoggerProvider = SdkLoggerProvider.builder()
-                .addLogRecordProcessor(BatchLogRecordProcessor.builder(SystemOutLogRecordExporter.create()).build())
-                .setResource(resource)
-                .build();
-
         return OpenTelemetrySdk.builder()
                 .setTracerProvider(sdkTracerProvider)
-                .setMeterProvider(sdkMeterProvider)
-                .setLoggerProvider(sdkLoggerProvider)
+                .setMeterProvider(createLoggingMeter(resource))
+                .setLoggerProvider(createLoggerProvider(resource))
                 .setPropagators(ContextPropagators.create(TextMapPropagator.composite(W3CTraceContextPropagator.getInstance(), W3CBaggagePropagator.getInstance())))
                 .buildAndRegisterGlobal();
     }
@@ -53,29 +44,39 @@ public class OTelUtils {
 
         SpanExporter otlpExporter = OtlpGrpcSpanExporter.builder()
                 .setEndpoint("http://sc.on.underlying.skynet.tpgc.me:4317")
+                .setCompression("gzip")
+                .build();
+
+        BatchSpanProcessor batchSpanProcessor = BatchSpanProcessor.builder(otlpExporter)
+                .setMaxQueueSize(2048)
+                .setMaxExportBatchSize(512) // Example max export batch size
                 .build();
 
         SdkTracerProvider sdkTracerProvider = SdkTracerProvider.builder()
-                .addSpanProcessor(SimpleSpanProcessor.create(otlpExporter))
-                .setResource(resource)
-                .build();
-
-        SdkMeterProvider sdkMeterProvider = SdkMeterProvider.builder()
-                .registerMetricReader(PeriodicMetricReader.builder(LoggingMetricExporter.create()).build())
-                .setResource(resource)
-                .build();
-
-        SdkLoggerProvider sdkLoggerProvider = SdkLoggerProvider.builder()
-                .addLogRecordProcessor(BatchLogRecordProcessor.builder(SystemOutLogRecordExporter.create()).build())
+                .addSpanProcessor(batchSpanProcessor)
                 .setResource(resource)
                 .build();
 
         return OpenTelemetrySdk.builder()
                 .setTracerProvider(sdkTracerProvider)
-                .setMeterProvider(sdkMeterProvider)
-                .setLoggerProvider(sdkLoggerProvider)
+                .setMeterProvider(createLoggingMeter(resource))
+                .setLoggerProvider(createLoggerProvider(resource))
                 .setPropagators(ContextPropagators.create(TextMapPropagator.composite(W3CTraceContextPropagator.getInstance(), W3CBaggagePropagator.getInstance())))
                 .buildAndRegisterGlobal();
+    }
+
+    private static SdkMeterProvider createLoggingMeter(Resource resource){
+        return SdkMeterProvider.builder()
+                .registerMetricReader(PeriodicMetricReader.builder(LoggingMetricExporter.create()).build())
+                .setResource(resource)
+                .build();
+    }
+
+    private static SdkLoggerProvider createLoggerProvider(Resource resource){
+        return SdkLoggerProvider.builder()
+                .addLogRecordProcessor(BatchLogRecordProcessor.builder(SystemOutLogRecordExporter.create()).build())
+                .setResource(resource)
+                .build();
     }
 
 }
