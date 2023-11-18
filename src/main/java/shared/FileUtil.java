@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class FileUtil {
 
     // do not change it breaks stuff
-    protected static final int READER_SIZE = 131072;
+    protected static final int READER_SIZE = 65000;
     public static final long SEED = 691;
 
     private static final LZ4Factory LZ_FACTORY = LZ4Factory.fastestInstance();
@@ -77,6 +77,9 @@ public class FileUtil {
                     break;
                 }
             }
+            sp.setAttribute("Data Read Uncompressed Bytes", reader.getUncompressedBytes());
+            sp.setAttribute("Data Read Compressed Bytes", reader.getCompressedBytes());
+            sp.setAttribute("Data Compression Ratio", reader.getRatio());
             reader.close();
             System.out.println("Writing " + path + " complete");
             sp.addEvent("File Written");

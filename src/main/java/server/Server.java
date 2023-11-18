@@ -24,7 +24,7 @@ public class Server {
 
     public static volatile boolean running = true;
 
-    private static final OpenTelemetry ot = OTelUtils.create();
+    private static final OpenTelemetry ot = OTelUtils.create("CumServer");
 
     public Server() {
         Tracer main = ot.getTracer("Main Server", "0.69");

@@ -39,8 +39,8 @@ public class OTelUtils {
                 .buildAndRegisterGlobal();
     }
 
-    public static OpenTelemetry create(){
-        Resource resource = Resource.getDefault().toBuilder().put(ResourceAttributes.SERVICE_NAME.getKey(), "cum").put(ResourceAttributes.SERVICE_VERSION.getKey(), "0.1.0").build();
+    public static OpenTelemetry create(String name){
+        Resource resource = Resource.getDefault().toBuilder().put(ResourceAttributes.SERVICE_NAME.getKey(), name).put(ResourceAttributes.SERVICE_VERSION.getKey(), "1.3.37").build();
 
         SpanExporter otlpExporter = OtlpGrpcSpanExporter.builder()
                 .setEndpoint("http://sc.on.underlying.skynet.tpgc.me:4317")
@@ -49,7 +49,7 @@ public class OTelUtils {
 
         BatchSpanProcessor batchSpanProcessor = BatchSpanProcessor.builder(otlpExporter)
                 .setMaxQueueSize(2048)
-                .setMaxExportBatchSize(512) // Example max export batch size
+                .setMaxExportBatchSize(512)
                 .build();
 
         SdkTracerProvider sdkTracerProvider = SdkTracerProvider.builder()

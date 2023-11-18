@@ -2,16 +2,13 @@ package server;
 
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.Tracer;
-import io.opentelemetry.context.Context;
 import io.opentelemetry.context.Scope;
 import net.jpountz.xxhash.StreamingXXHash64;
-import shared.ArrayData;
 import shared.FileUtil;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.concurrent.TimeUnit;
 
 public class ChunkedCompressedChecksumFileReader {
 
@@ -19,6 +16,14 @@ public class ChunkedCompressedChecksumFileReader {
     private final StreamingXXHash64 streamHash;
     private final DataOutputStream fileOutputWriter;
     private final long seed;
+
+    private Span currentSpan = null;
+    private Scope currentScope = null;
+    private long count = 0;
+    private static final long MAX_COUNT = 50;
+
+    private long uncompressed_bytes = 0;
+    private long compressed_bytes = 0;
 
     public ChunkedCompressedChecksumFileReader(DataInputStream networkStreamReader, String fileOutputPath, long seed) throws IOException {
         this.networkStreamReader = networkStreamReader;
@@ -28,26 +33,36 @@ public class ChunkedCompressedChecksumFileReader {
     }
 
     public FileHeader readChunk(Tracer trace, Span sp) throws IOException {
-        Span gf = trace.spanBuilder("Chunk Read").startSpan();
-        FileHeader header = readHeader();
-        gf.setAttribute("Read Uncompressed", header.getUncompressed());
-        gf.setAttribute("Read Compressed", header.getCompressed());
-        gf.setAttribute("Read Hash", header.getHash());
-        try (Scope scope = gf.makeCurrent()) {
-            if (header.getUncompressed() == 0)
-                return header;
-            gf.addEvent("Read Data");
-            byte[] data = readSome(header);
-            gf.addEvent("Decompress Data");
-            byte[] decompressed = decompress(header, data);
-            gf.addEvent("Hash");
-            hash(header, decompressed);
-            gf.addEvent("Write");
-            fileOutputWriter.write(decompressed, 0, decompressed.length);
-            gf.addEvent("End");
-        } finally {
-            gf.end();
+        if (++count >= MAX_COUNT) {
+            currentSpan.addEvent("--{End Read}--");
+            currentScope.close();
+            currentSpan.end();
+            currentSpan = null;
+            currentScope = null;
         }
+        if (currentSpan == null) {
+            count = 0;
+            currentSpan = trace.spanBuilder("Chunk Read").startSpan();
+            currentScope = currentSpan.makeCurrent();
+        }
+        FileHeader header = readHeader();
+        uncompressed_bytes += header.getUncompressed();
+        compressed_bytes += header.getCompressed();
+        currentSpan.addEvent("--{Begin Read}--");
+        currentSpan.addEvent("Attribute: Read Uncompressed = " + header.getUncompressed());
+        currentSpan.addEvent("Attribute: Read Compressed = " + header.getCompressed());
+        currentSpan.addEvent("Attribute: Compression Ratio = " + ((double)header.getUncompressed() / header.getCompressed()));
+        currentSpan.addEvent("Attribute: Read Hash = " + header.getHash());
+        if (header.getUncompressed() == 0)
+            return header;
+        currentSpan.addEvent("Read Data");
+        byte[] data = readSome(header);
+        currentSpan.addEvent("Decompress Data");
+        byte[] decompressed = decompress(header, data);
+        currentSpan.addEvent("Hash");
+        hash(header, decompressed);
+        currentSpan.addEvent("Write");
+        fileOutputWriter.write(decompressed, 0, decompressed.length);
         return header;
     }
 
@@ -57,6 +72,21 @@ public class ChunkedCompressedChecksumFileReader {
             throw new RuntimeException("Stream total hash doesn't match the client's sent hash!");
         fileOutputWriter.flush();
         fileOutputWriter.close();
+        currentSpan.addEvent("--{End Read}--");
+        currentScope.close();
+        currentSpan.end();
+    }
+
+    public long getCompressedBytes(){
+        return compressed_bytes;
+    }
+
+    public long getUncompressedBytes(){
+        return uncompressed_bytes;
+    }
+
+    public double getRatio(){
+        return (double) uncompressed_bytes / (double) compressed_bytes;
     }
 
     private FileHeader readHeader() throws IOException {

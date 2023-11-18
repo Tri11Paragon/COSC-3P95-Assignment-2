@@ -51,19 +51,20 @@ public class Connection implements Runnable {
                 }
                 try {
                     if (in.available() > 0) {
-                        fileSend.addEvent("File Received");
-                        Span fileIn = trace.spanBuilder("File Received").setAttribute("Files Received", filesReceived).startSpan();
-                        try (Scope s = fileIn.makeCurrent()){
-                            byte command = in.readByte();
+                        byte command = in.readByte();
 
-                            if (command == FileUtil.COMMAND.CLOSE.type) {
-                                System.out.println("Client sent disconnect signal!");
-                                break;
-                            }
-                            if (command == FileUtil.COMMAND.WRITE.type)
+                        if (command == FileUtil.COMMAND.CLOSE.type) {
+                            System.out.println("Client sent disconnect signal!");
+                            break;
+                        }
+                        if (command == FileUtil.COMMAND.WRITE.type) {
+                            fileSend.addEvent("File Received");
+                            Span fileIn = trace.spanBuilder("File Received").setAttribute("Files Received", filesReceived).startSpan();
+                            try (Scope s = fileIn.makeCurrent()) {
                                 FileUtil.receive(in, trace, fileIn);
-                        } finally {
-                            fileIn.end();
+                            } finally {
+                                fileIn.end();
+                            }
                         }
                     }
                 } catch (IOException e) {
