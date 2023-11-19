@@ -23,6 +23,19 @@ import io.opentelemetry.semconv.ResourceAttributes;
 
 public class OTelUtils {
 
+    public static class SexyContainer {
+        public OpenTelemetry ot;
+        public SdkTracerProvider tp;
+        public BatchSpanProcessor bp;
+        public SpanExporter ox;
+        public SexyContainer(OpenTelemetry ot, SdkTracerProvider tp, BatchSpanProcessor bp, SpanExporter ox){
+            this.ot = ot;
+            this.tp = tp;
+            this.bp = bp;
+            this.ox = ox;
+        }
+    }
+
     public static OpenTelemetry createLogger(){
         Resource resource = Resource.getDefault().toBuilder().put(ResourceAttributes.SERVICE_NAME, "cum").put(ResourceAttributes.SERVICE_VERSION, "0.1.0").build();
 
@@ -39,7 +52,7 @@ public class OTelUtils {
                 .buildAndRegisterGlobal();
     }
 
-    public static OpenTelemetry create(String name){
+    public static SexyContainer create(String name){
         Resource resource = Resource.getDefault().toBuilder().put(ResourceAttributes.SERVICE_NAME.getKey(), name).put(ResourceAttributes.SERVICE_VERSION.getKey(), "1.3.37").build();
 
         SpanExporter otlpExporter = OtlpGrpcSpanExporter.builder()
@@ -57,12 +70,12 @@ public class OTelUtils {
                 .setResource(resource)
                 .build();
 
-        return OpenTelemetrySdk.builder()
+        return new SexyContainer(OpenTelemetrySdk.builder()
                 .setTracerProvider(sdkTracerProvider)
                 .setMeterProvider(createLoggingMeter(resource))
                 .setLoggerProvider(createLoggerProvider(resource))
                 .setPropagators(ContextPropagators.create(TextMapPropagator.composite(W3CTraceContextPropagator.getInstance(), W3CBaggagePropagator.getInstance())))
-                .buildAndRegisterGlobal();
+                .buildAndRegisterGlobal(), sdkTracerProvider, batchSpanProcessor, otlpExporter);
     }
 
     private static SdkMeterProvider createLoggingMeter(Resource resource){

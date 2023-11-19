@@ -24,10 +24,10 @@ public class Server {
 
     public static volatile boolean running = true;
 
-    private static final OpenTelemetry ot = OTelUtils.create("CumServer");
+    private static final OTelUtils.SexyContainer ot = OTelUtils.create("CumServer");
 
     public Server() {
-        Tracer main = ot.getTracer("Main Server", "0.69");
+        Tracer main = ot.ot.getTracer("Main Server", "0.69");
         try {
             System.out.println("Starting server");
             ServerSocket serverSocket = new ServerSocket(SERVER_PORT);

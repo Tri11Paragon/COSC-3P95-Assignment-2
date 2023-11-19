@@ -1,6 +1,7 @@
 package server;
 
 import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.context.Scope;
 import net.jpountz.xxhash.StreamingXXHash64;
@@ -19,9 +20,8 @@ public class ChunkedCompressedChecksumFileReader {
 
     private Span currentSpan = null;
     private Scope currentScope = null;
-    private long count = 0;
-    private static final long MAX_COUNT = 50;
 
+    private long count = 0;
     private long uncompressed_bytes = 0;
     private long compressed_bytes = 0;
 
@@ -32,16 +32,17 @@ public class ChunkedCompressedChecksumFileReader {
         this.seed = seed;
     }
 
-    public FileHeader readChunk(Tracer trace, Span sp) throws IOException {
-        if (++count >= MAX_COUNT) {
+    public FileHeader readChunk(Tracer trace) throws IOException {
+        if (++count >= FileUtil.MAX_COUNT) {
             currentSpan.addEvent("--{End Read}--");
+            currentSpan.setStatus(StatusCode.OK);
             currentScope.close();
             currentSpan.end();
             currentSpan = null;
             currentScope = null;
+            count = 0;
         }
         if (currentSpan == null) {
-            count = 0;
             currentSpan = trace.spanBuilder("Chunk Read").startSpan();
             currentScope = currentSpan.makeCurrent();
         }
@@ -72,9 +73,11 @@ public class ChunkedCompressedChecksumFileReader {
             throw new RuntimeException("Stream total hash doesn't match the client's sent hash!");
         fileOutputWriter.flush();
         fileOutputWriter.close();
-        currentSpan.addEvent("--{End Read}--");
-        currentScope.close();
-        currentSpan.end();
+        if (currentSpan != null) {
+            currentSpan.addEvent("--{End Read}--");
+            currentScope.close();
+            currentSpan.end();
+        }
     }
 
     public long getCompressedBytes(){
@@ -86,6 +89,8 @@ public class ChunkedCompressedChecksumFileReader {
     }
 
     public double getRatio(){
+        if (compressed_bytes == 0)
+            return 0;
         return (double) uncompressed_bytes / (double) compressed_bytes;
     }
 

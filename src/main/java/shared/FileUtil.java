@@ -2,6 +2,7 @@ package shared;
 
 import client.ChunkedCompressedChecksumFileWriter;
 import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.context.Scope;
 import net.jpountz.lz4.LZ4Compressor;
@@ -21,6 +22,7 @@ public class FileUtil {
     // do not change it breaks stuff
     protected static final int READER_SIZE = 65000;
     public static final long SEED = 691;
+    public static final long MAX_COUNT = 128;
 
     private static final LZ4Factory LZ_FACTORY = LZ4Factory.fastestInstance();
     public static final LZ4Compressor COMPRESSOR = LZ_FACTORY.highCompressor();
@@ -39,7 +41,7 @@ public class FileUtil {
         }
     }
 
-    public static void write(String path, DataOutputStream dataOut) {
+    public static void write(String path, DataOutputStream dataOut, Tracer trace, Span sp) {
         validatePath(path);
         String relative_path = path.replace(System.getProperty("user.dir"), "");
         try {
@@ -51,7 +53,12 @@ public class FileUtil {
             ChunkedCompressedChecksumFileWriter writer = new ChunkedCompressedChecksumFileWriter(dataOut, fileReader, FileUtil.READER_SIZE, FileUtil.SEED);
 
             while (fileReader.available() > 0)
-                writer.processChunk();
+                writer.processChunk(trace);
+
+            sp.setAttribute("Data Read Uncompressed Bytes", writer.getUncompressedBytes());
+            sp.setAttribute("Data Read Compressed Bytes", writer.getCompressedBytes());
+            sp.setAttribute("Data Compression Ratio", writer.getRatio());
+            sp.setStatus(StatusCode.OK);
 
             writer.close();
             fileReader.close();
@@ -72,7 +79,7 @@ public class FileUtil {
 
             // ugh I want while(reader.readChunk().getUncompressed()); but it makes warnings!!!
             while (true) {
-                if (reader.readChunk(trace, sp).getUncompressed() == 0) {
+                if (reader.readChunk(trace).getUncompressed() == 0) {
                     sp.addEvent("Chunk Read");
                     break;
                 }
@@ -80,6 +87,7 @@ public class FileUtil {
             sp.setAttribute("Data Read Uncompressed Bytes", reader.getUncompressedBytes());
             sp.setAttribute("Data Read Compressed Bytes", reader.getCompressedBytes());
             sp.setAttribute("Data Compression Ratio", reader.getRatio());
+            sp.setStatus(StatusCode.OK);
             reader.close();
             System.out.println("Writing " + path + " complete");
             sp.addEvent("File Written");

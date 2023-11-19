@@ -3,6 +3,7 @@ package server;
 import client.Client;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanBuilder;
+import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.context.Context;
 import io.opentelemetry.context.Scope;
@@ -73,6 +74,7 @@ public class Connection implements Runnable {
                 }
             }
         } finally {
+            fileSend.setStatus(StatusCode.OK);
             fileSend.end();
         }
         try {
