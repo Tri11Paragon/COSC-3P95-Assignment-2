@@ -1,10 +1,10 @@
 shared/ExceptionLogger.class
 shared/OTelUtils$SexyContainer.class
 shared/FileUtil.class
-server/Server.class
 server/Connection.class
-shared/ArrayData.class
+server/Server.class
 server/ChunkedCompressedChecksumFileReader.class
+shared/ArrayData.class
 client/ChunkedCompressedChecksumFileWriter.class
 shared/FileUtil$InvalidUsageException.class
 shared/OTelUtils.class

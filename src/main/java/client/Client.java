@@ -19,7 +19,7 @@ public class Client {
     private final Socket serverConnection;
     private final DataOutputStream out;
     private final DataInputStream in;
-    private OTelUtils.SexyContainer ot = OTelUtils.create("CumClient"); // Computational Unit Machine Client
+    private OTelUtils.SexyContainer ot = OTelUtils.create("Client"); // Computational Unit Machine Client
     private final Tracer tracer;
     private final Scope sc;
     private final Span s;
@@ -45,6 +45,11 @@ public class Client {
         ot.tp.forceFlush();
         ot.bp.forceFlush();
         ot.ox.flush();
+//        try {
+//            Thread.sleep((long)(Math.random() * 10));
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         return this;
     }
 

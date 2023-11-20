@@ -24,7 +24,7 @@ public class Server {
 
     public static volatile boolean running = true;
 
-    private static final OTelUtils.SexyContainer ot = OTelUtils.create("CumServer");
+    private static final OTelUtils.SexyContainer ot = OTelUtils.create("Server");
 
     public Server() {
         Tracer main = ot.ot.getTracer("Main Server", "0.69");
